@@ -220,12 +220,18 @@ function hideData(text) {
 
 function revealData() {
 
-    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const imageData = ctx.getImageData(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
 
     const data = imageData.data;
 
+    const bytes = [];
+
     let binaryByte = "";
-    let extractedText = "";
 
     for (let i = 0; i < data.length; i += 4) {
 
@@ -236,11 +242,15 @@ function revealData() {
             // Every 8 bits = 1 byte
             if (binaryByte.length === 8) {
 
-                const byte = parseInt(binaryByte, 2);
-
-                extractedText += String.fromCharCode(byte);
+                bytes.push(parseInt(binaryByte, 2));
 
                 binaryByte = "";
+
+                // Decode progressively
+                const extractedText =
+                    new TextDecoder().decode(
+                        new Uint8Array(bytes)
+                    );
 
                 // Stop immediately once marker found
                 if (extractedText.endsWith(END_MARKER)) {
