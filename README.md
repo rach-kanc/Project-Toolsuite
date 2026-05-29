@@ -15,7 +15,7 @@ In development, forever... :)
 
 | Rank | Contributor | Points | Commits |
 |-----:|------------|-------:|--------:|
-| 1 | @Winter262005 | 208 | 208 |
+| 1 | @Winter262005 | 210 | 210 |
 | 2 | @VITianYash42 | 20 | 20 |
 | 3 | @AdityaMittal08 | 9 | 9 |
 | 4 | @SamXop123 | 4 | 4 |
