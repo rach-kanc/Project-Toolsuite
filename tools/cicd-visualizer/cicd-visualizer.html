@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CI/CD Visualizer - Project Toolsuite</title>
+    <meta name="description" content="Offline CI/CD pipeline visualizer and builder. Drag, drop, and export your workflows.">
+    <link rel="stylesheet" href="../../assets/css/notifications.css">
+    <script src="../../assets/js/notifications.js" defer></script>
+    <style>
+        :root {
+            --bg: #ffffff;
+            --text: #000000;
+            --border: #000000;
+            --tag-bg: #f0f0f0;
+            --card-bg: #ffffff;
+            --hover: #e0e0e0;
+        }
+
+        body.dark-mode {
+            --bg: #1b1a1a;
+            --text: #f0f0f0;
+            --border: #f0f0f0;
+            --tag-bg: #333333;
+            --card-bg: #2a2a2a;
+            --hover: #444444;
+        }
+
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            transition: background-color 0.3s, color 0.3s;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        header {
+            border-bottom: 5px solid var(--border);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        h1 { font-size: 2rem; text-transform: uppercase; margin: 0; }
+        
+        .toolbar {
+            display: flex;
+            gap: 15px;
+        }
+
+        button.btn {
+            background: var(--bg);
+            color: var(--text);
+            border: 3px solid var(--border);
+            padding: 8px 16px;
+            font-family: inherit;
+            font-weight: 900;
+            cursor: pointer;
+            text-transform: uppercase;
+            box-shadow: 4px 4px 0px var(--border);
+            transition: transform 0.1s;
+        }
+        
+        button.btn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0px var(--border); }
+        button.btn.primary { background: var(--text); color: var(--bg); }
+
+        .workspace {
+            display: flex;
+            flex-grow: 1;
+            gap: 20px;
+            overflow: hidden;
+        }
+
+        /* Sidebar Templates */
+        .sidebar {
+            width: 250px;
+            border: 3px solid var(--border);
+            background: var(--tag-bg);
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            overflow-y: auto;
+        }
+
+        .sidebar h2 { margin-top: 0; border-bottom: 2px solid var(--border); padding-bottom: 5px; font-size: 1.2rem; }
+
+        .template-card {
+            border: 2px solid var(--border);
+            background: var(--card-bg);
+            padding: 10px;
+            margin-bottom: 15px;
+            cursor: grab;
+            font-weight: bold;
+            box-shadow: 3px 3px 0px var(--border);
+        }
+        
+        .template-card:active { cursor: grabbing; }
+
+        /* Canvas */
+        .canvas-container {
+            flex-grow: 1;
+            border: 3px solid var(--border);
+            background: var(--bg);
+            padding: 20px;
+            overflow-x: auto;
+            overflow-y: auto;
+            display: flex;
+            align-items: flex-start;
+            position: relative;
+        }
+
+        .pipeline {
+            display: flex;
+            gap: 40px;
+            padding: 20px 0;
+            min-height: 300px;
+        }
+
+        .stage {
+            width: 220px;
+            background: var(--tag-bg);
+            border: 3px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        /* Arrow connection between stages */
+        .stage:not(:last-child)::after {
+            content: "➔";
+            position: absolute;
+            top: 20px;
+            right: -32px;
+            font-size: 1.5rem;
+            color: var(--text);
+            line-height: 1;
+        }
+
+        .stage-header {
+            background: var(--text);
+            color: var(--bg);
+            padding: 10px;
+            font-weight: bold;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .stage-header input {
+            background: transparent;
+            border: none;
+            color: inherit;
+            font-family: inherit;
+            font-weight: bold;
+            font-size: 1rem;
+            width: 80%;
+            outline: none;
+            text-transform: uppercase;
+        }
+
+        .stage-delete {
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .stage-body {
+            padding: 15px;
+            min-height: 100px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .job-card {
+            border: 2px solid var(--border);
+            background: var(--card-bg);
+            padding: 10px;
+            cursor: grab;
+            position: relative;
+            box-shadow: 3px 3px 0px var(--border);
+            word-break: break-word;
+        }
+
+        .job-card:active { cursor: grabbing; }
+
+        .job-card .delete-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            cursor: pointer;
+            color: var(--error);
+            font-size: 0.8rem;
+            font-weight: bold;
+            display: none;
+        }
+        
+        .job-card:hover .delete-btn { display: block; }
+
+        .job-title { font-weight: bold; margin-bottom: 5px; }
+        .job-desc { font-size: 0.8rem; opacity: 0.8; }
+
+        .drag-over { background-color: var(--hover); }
+        .ghost-card { opacity: 0.3; border: 2px dashed var(--border); box-shadow: none; }
+
+        /* Configuration Modal */
+        #configModal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--bg);
+            border: 4px solid var(--border);
+            padding: 20px;
+            width: 400px;
+            max-width: 90%;
+            box-shadow: 8px 8px 0px var(--border);
+        }
+
+        .modal-content h3 { margin-top: 0; text-transform: uppercase; }
+        
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-weight: bold; margin-bottom: 5px; }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 8px;
+            font-family: inherit;
+            border: 2px solid var(--border);
+            background: var(--bg);
+            color: var(--text);
+            box-sizing: border-box;
+        }
+
+        .modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div>
+            <h1>CI/CD Visualizer</h1>
+            <div style="font-size: 0.9rem; opacity: 0.8;">Drag & drop pipeline builder. 100% offline.</div>
+        </div>
+        <div class="toolbar">
+            <button class="btn" onclick="addStage()">+ Add Stage</button>
+            <button class="btn" onclick="exportYAML()">Export YAML</button>
+            <button class="btn" onclick="clearPipeline()">Clear</button>
+            <button id="themeBtn" class="btn primary" onclick="toggleTheme()">Dark Mode</button>
+        </div>
+    </header>
+
+    <div class="workspace">
+        <div class="sidebar">
+            <h2>Job Templates</h2>
+            <div style="font-size: 0.8rem; margin-bottom: 15px; opacity: 0.8;">Drag into stages</div>
+            
+            <div class="template-card" draggable="true" data-type="script" data-title="Run Script" data-desc="Execute a shell script">
+                Terminal Script
+            </div>
+            <div class="template-card" draggable="true" data-type="docker" data-title="Build Image" data-desc="docker build .">
+                Docker Build
+            </div>
+            <div class="template-card" draggable="true" data-type="test" data-title="Run Tests" data-desc="npm test">
+                Unit Tests
+            </div>
+            <div class="template-card" draggable="true" data-type="lint" data-title="Linter" data-desc="Check code quality">
+                Code Linter
+            </div>
+            <div class="template-card" draggable="true" data-type="deploy" data-title="Deploy" data-desc="Push to production">
+                Deployment
+            </div>
+            <div class="template-card" draggable="true" data-type="notify" data-title="Notify" data-desc="Send Slack/Email alert">
+                Notification
+            </div>
+        </div>
+
+        <div class="canvas-container" id="canvas">
+            <div class="pipeline" id="pipeline">
+                <!-- Stages will go here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Configuration Modal -->
+    <div id="configModal">
+        <div class="modal-content">
+            <h3>Configure Job</h3>
+            <div class="form-group">
+                <label>Job Name</label>
+                <input type="text" id="jobNameInput">
+            </div>
+            <div class="form-group">
+                <label>Command / Script</label>
+                <textarea id="jobDescInput" rows="3"></textarea>
+            </div>
+            <div class="modal-actions">
+                <button class="btn" onclick="closeModal()">Cancel</button>
+                <button class="btn primary" onclick="saveJobConfig()">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="cicd-visualizer.js"></script>
+    <script>
+        function updateThemeButton() {
+            const btn = document.getElementById('themeBtn');
+            if (!btn) return;
+            btn.textContent = document.body.classList.contains('dark-mode') ? 'Light Mode' : 'Dark Mode';
+        }
+        function applyTheme(theme) {
+            if (theme === 'dark') document.body.classList.add('dark-mode');
+            else document.body.classList.remove('dark-mode');
+            updateThemeButton();
+        }
+        function toggleTheme() {
+            const newTheme = document.body.classList.contains('dark-mode') ? 'light' : 'dark';
+            localStorage.setItem('theme', newTheme);
+            applyTheme(newTheme);
+        }
+        applyTheme(localStorage.getItem('theme') || 'light');
+    </script>
+</body>
+</html>
