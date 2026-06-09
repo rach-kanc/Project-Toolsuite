@@ -438,9 +438,28 @@
         }
 
         .dark-mode-toggle {
-          padding: 10px 14px;
-          font-size: 0.8rem;
-          box-shadow: 2px 2px 0 var(--border);
+            position: static;
+            z-index: 2;
+            background: var(--text);
+            color: var(--bg);
+            border: 2px solid var(--border);
+            padding: 10px 24px;
+            font-family: inherit;
+            font-weight: 900;
+            cursor: pointer;
+            text-transform: uppercase;
+            box-shadow: 4px 4px 0px var(--border);
+            transition: transform 0.1s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .theme-option {
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .theme-option {
