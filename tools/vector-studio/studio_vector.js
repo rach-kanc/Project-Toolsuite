@@ -280,7 +280,7 @@ class VectorEngine {
         const h = this.canvas.height;
 
         // Clear & Grid
-        const isDark = document.documentElement.classList.contains('dark-mode');
+        const isDark = document.body.classList.contains('dark-mode');
         ctx.fillStyle = isDark ? '#0f172a' : '#e7e5e4';
         ctx.fillRect(0, 0, w, h);
         this.drawGrid(w, h, isDark);
@@ -455,11 +455,15 @@ class VectorEngine {
 
     // Save shapes to localStorage
     saveToLocalStorage() {
-        if (this.shapes.length > 0) {
-            localStorage.setItem('vector_studio_shapes', JSON.stringify(this.shapes));
-            console.log('Shapes auto-saved to localStorage');
-        } else {
-            this.clearLocalStorage();
+        try {
+            if (this.shapes.length > 0) {
+                localStorage.setItem('vector_studio_shapes', JSON.stringify(this.shapes));
+                console.log('Shapes auto-saved to localStorage');
+            } else {
+                this.clearLocalStorage();
+            }
+        } catch (e) {
+            console.error('Failed to auto-save shapes to localStorage:', e);
         }
     }
 
@@ -512,7 +516,7 @@ class VectorEngine {
             link.href = this.canvas.toDataURL();
             link.click();
         } else if (format === 'svg') {
-            const isDark = document.documentElement.classList.contains('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
             const bg = isDark ? '#0f172a' : '#e7e5e4';
             let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${this.canvas.width}" height="${this.canvas.height}" style="background:${bg}">`;
 
