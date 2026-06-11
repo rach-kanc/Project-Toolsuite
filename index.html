@@ -225,23 +225,33 @@
       }
 
       .tool-link {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          min-height: 52px;
+          padding: 14px 20px;
+          border: 3px solid var(--border);
+          text-decoration: none;
+          color: inherit;
+          font-weight: bold;
+          transition: all 0.2s;
+          background: var(--bg);
+       }
+      .tool-tags {
+        margin-top: 6px;
         display: flex;
-        align-items: center;
-        min-height: 52px;
-        padding: 14px 20px;
-        border: 3px solid var(--border);
-        text-decoration: none;
-        color: inherit;
-        font-weight: bold;
-        transition: all 0.2s;
-        background: var(--bg);
-      }
-      .tool-link:hover {
-        background-color: var(--text);
-        color: var(--bg);
-        transform: translate(-3px, -3px);
-        box-shadow: 5px 5px 0px var(--border);
-      }
+        flex-wrap: wrap;
+        gap: 6px;
+     }
+
+     .tag {
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      opacity: 0.8;
+      white-space: nowrap;
+}
 
       #toolSearch::placeholder {
         opacity: 0.6;
@@ -530,10 +540,23 @@
         }
 
         .tool-link {
-          padding: 12px;
-          font-size: 0.85rem;
-          border-width: 2px;
-        }
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          min-height: 52px;
+          padding: 14px 20px;
+          border: 3px solid var(--border);
+          text-decoration: none;
+          color: inherit;
+          font-weight: bold;
+          transition: all 0.2s;
+          background: var(--bg);
+       }
+      .tool-link small {
+        display: block;
+        font-size: 0.8rem;
+        opacity: 0.7;
+       }
 
         .tool-link:hover {
           transform: translate(-2px, 2px);
@@ -927,6 +950,21 @@
           path: "tools/cicd-visualizer/cicd-visualizer.html",
           tags: ["Dev", "Design"],
         },
+        {
+          name: "IP Subnet Calculator",
+          path: "tools/ip-subnet-calculator/index.html",
+          tags: ["Dev", "Utilities"],
+        },
+        {
+          name: "RSA Encryption & Decryption",
+          path: "tools/rsa-encryption-decryption/rsa.html",
+          tags: ["Security", "Dev"],
+        },
+        {
+          name: "Unit Converter",
+          path: "tools/unit-converter/unit-converter.html",
+          tags: ["Utilities", "Maths"],
+        },
       ];
 
       let activeTag = "all";
@@ -993,20 +1031,27 @@
           });
         }
 
-        if (filtered.length === 0) {
-          container.innerHTML = `<p style="grid-column: 1/-1; opacity: 0.5;">No tools found matching your criteria.</p>`;
-          return;
-        }
-        console.log(document.getElementById("toolCount"));
-        console.log(document.getElementById("tools-container"));
-        container.innerHTML = filtered
-          .map(
-            (t) => `
-            <a href="${t.path}" class="tool-link">${t.name}</a>
-        `,
-          )
-          .join("");
-      }
+    if (filtered.length === 0) {
+     container.innerHTML = `
+      <p style="grid-column: 1/-1; opacity: 0.5;">
+        No tools found matching your criteria.
+      </p>`;
+  return;
+}
+
+container.innerHTML = filtered
+  .map(
+    (t) => `
+      <a href="${t.path}" class="tool-link">
+        <div>${t.name}</div>
+        <div class="tool-tags">
+          ${t.tags.map(tag => `<span class="tag">${tag}</span>`).join("")}
+        </div>
+      </a>
+    `,
+  )
+  .join("");
+  }
 
       document.getElementById("toolSearch").oninput = renderTools;
 

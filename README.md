@@ -152,7 +152,7 @@ See the `LICENSE` file for complete details.
 
 | Rank | Contributor | Points | Commits |
 |-----:|------------|-------:|--------:|
-| 1 | @Winter262005 | 229 | 229 |
+| 1 | @Winter262005 | 230 | 230 |
 | 2 | @VITianYash42 | 20 | 20 |
 | 3 | @Dru-429 | 13 | 13 |
 | 4 | @AdityaMittal08 | 9 | 9 |
@@ -180,8 +180,9 @@ See the `LICENSE` file for complete details.
 | 26 | @vishakhaojha57 | 1 | 1 |
 | 27 | @architsinghal0005 | 1 | 1 |
 | 28 | @helen1806 | 1 | 1 |
-| 29 | @Shweta-Bairagi0312 | 1 | 1 |
-| 30 | @yhcb21 | 1 | 1 |
+| 29 | @jahareena-06 | 1 | 1 |
+| 30 | @Shweta-Bairagi0312 | 1 | 1 |
+| 31 | @yhcb21 | 1 | 1 |
 
 <!-- LEADERBOARD_END -->
 

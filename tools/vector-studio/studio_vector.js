@@ -252,6 +252,21 @@ class VectorEngine {
             this.dragStartState = null;
             this.isDragging = false;
         });
+        
+        // Delete using Backspace or Delete Key
+        window.addEventListener('keydown', (event)=>{
+            const isDeleteKey = event.key === 'Delete' || event.key ==='Backspace';
+
+            const isTyping=
+                event.target.tagName === 'INPUT' ||
+                event.target.tagName === 'TEXTAREA' ||
+                event.target.isContentEditable;
+
+            if (isDeleteKey && !isTyping && this.selection){
+                event.preventDefault();
+                this.deleteSelected();
+            }
+        });
 
         // Properties Listeners
         ['fillColor', 'strokeColor', 'strokeWidth'].forEach(id => {
