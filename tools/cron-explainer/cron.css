@@ -1,0 +1,446 @@
+/* Neobrutalist design system for CRON Explainer & Builder */
+
+:root {
+    --bg: #ffffff;
+    --text: #000000;
+    --border: #000000;
+    --tag-bg: #f5f5f4;
+    --muted: #78716c;
+    --accent: #d6d3d1;
+    --success: #22c55e;
+    --error: #ef4444;
+}
+
+body.dark-mode {
+    --bg: #0f172a;
+    --text: #f8fafc;
+    --border: #60a5fa;
+    --tag-bg: #111827;
+    --muted: #94a3b8;
+    --accent: #1e293b;
+    --success: #4ade80;
+    --error: #f87171;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    max-width: 950px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+header {
+    border-bottom: 5px solid var(--border);
+    padding-bottom: 20px;
+    margin-bottom: 35px;
+    position: relative;
+}
+
+h1 {
+    font-size: 2.2rem;
+    margin: 0 0 10px 0;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+}
+
+header p {
+    font-size: 1rem;
+    color: var(--muted);
+    margin: 0;
+}
+
+.dark-mode-toggle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: var(--text);
+    color: var(--bg);
+    border: 2px solid var(--border);
+    padding: 10px 24px;
+    font-family: inherit;
+    font-weight: 900;
+    cursor: pointer;
+    text-transform: uppercase;
+    box-shadow: 4px 4px 0px var(--border);
+    transition: transform 0.1s;
+}
+
+.dark-mode-toggle:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px var(--border);
+}
+
+.nav-btn {
+    background: transparent;
+    border: none;
+    font-family: inherit;
+    font-weight: 900;
+    font-size: 0.85rem;
+    cursor: pointer;
+    color: var(--text);
+    margin-right: 15px;
+    padding: 0;
+    border-bottom: 1px dotted var(--border);
+}
+
+.nav-btn:hover {
+    background: var(--text);
+    color: var(--bg);
+}
+
+/* Main Layout Grid */
+.tool-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+}
+
+@media(min-width: 850px) {
+    .tool-grid {
+        grid-template-columns: 1.2fr 0.8fr;
+    }
+}
+
+/* Card Styling */
+.card {
+    border: 3px solid var(--border);
+    padding: 24px;
+    background: var(--bg);
+    margin-bottom: 24px;
+    position: relative;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 10px;
+    margin-top: 0;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+}
+
+/* CRON Input Block */
+.cron-input-wrapper {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.cron-input-wrapper input[type="text"] {
+    flex-grow: 1;
+    padding: 14px;
+    font-family: inherit;
+    font-size: 1.4rem;
+    font-weight: bold;
+    border: 3px solid var(--border);
+    background: transparent;
+    color: inherit;
+    box-sizing: border-box;
+    letter-spacing: 2px;
+}
+
+.cron-input-wrapper input[type="text"]::placeholder {
+    opacity: 0.4;
+}
+
+/* Status Alert Panel */
+.status-panel {
+    padding: 16px;
+    border: 2px dashed var(--border);
+    font-size: 1.1rem;
+    font-weight: bold;
+    background: var(--tag-bg);
+    margin-bottom: 25px;
+    min-height: 56px;
+}
+
+.status-panel.error {
+    border-color: var(--error);
+    color: var(--error);
+    background-color: rgba(239, 68, 68, 0.08);
+}
+
+.status-panel.success {
+    border-color: var(--success);
+    color: var(--success);
+    background-color: rgba(34, 197, 94, 0.08);
+}
+
+/* Field Detail Grid */
+.fields-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.field-badge {
+    border: 2px solid var(--border);
+    padding: 12px;
+    text-align: center;
+    background: var(--tag-bg);
+}
+
+.field-badge .field-name {
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 4px;
+    margin-bottom: 8px;
+}
+
+.field-badge .field-value {
+    font-size: 1.1rem;
+    font-weight: bold;
+    word-break: break-all;
+}
+
+/* Visual Builder Tabs */
+.tab-bar {
+    display: flex;
+    border-bottom: 3px solid var(--border);
+    overflow-x: auto;
+    margin-bottom: 20px;
+    gap: 5px;
+}
+
+.tab-btn {
+    font-family: inherit;
+    background-color: var(--bg);
+    color: var(--text);
+    border: 3px solid var(--border);
+    border-bottom: none;
+    padding: 10px 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    transition: all 0.15s ease;
+}
+
+.tab-btn.active {
+    background-color: var(--text);
+    color: var(--bg);
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Builder Controls */
+.builder-mode-row {
+    margin-bottom: 16px;
+    border-bottom: 1px dashed var(--border);
+    padding-bottom: 16px;
+}
+
+.builder-mode-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.radio-label input[type="radio"] {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--border);
+    background: var(--bg);
+    cursor: pointer;
+    position: relative;
+}
+
+.radio-label input[type="radio"]:checked::after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    top: 3px;
+    left: 3px;
+    background: var(--text);
+}
+
+.control-subset {
+    margin-left: 26px;
+    margin-top: 10px;
+}
+
+.control-subset select, 
+.control-subset input[type="number"] {
+    font-family: inherit;
+    font-size: 0.95rem;
+    padding: 8px;
+    border: 2px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
+    border-radius: 0;
+    max-width: 120px;
+}
+
+/* Custom Checkbox Grid */
+.checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(48px, 1fr));
+    gap: 6px;
+    max-height: 250px;
+    overflow-y: auto;
+    border: 2px solid var(--border);
+    padding: 10px;
+    background: var(--tag-bg);
+}
+
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--border);
+    padding: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: bold;
+    user-select: none;
+    transition: all 0.1s;
+    background: var(--bg);
+    color: var(--text);
+    text-align: center;
+}
+
+.checkbox-item.checked {
+    background: var(--text);
+    color: var(--bg);
+}
+
+.checkbox-item input {
+    display: none;
+}
+
+/* Upcoming Occurrences List */
+.execution-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.execution-item {
+    border: 2px solid var(--border);
+    padding: 10px 15px;
+    margin-bottom: 8px;
+    background: var(--tag-bg);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.execution-index {
+    width: 24px;
+    height: 24px;
+    border: 1px solid var(--border);
+    background: var(--text);
+    color: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.execution-time {
+    font-weight: bold;
+    font-size: 0.95rem;
+}
+
+.error-msg {
+    color: var(--error);
+    font-weight: bold;
+}
+
+/* Action button stylings */
+.btn {
+    font-family: inherit;
+    background-color: var(--bg);
+    color: var(--text);
+    border: 2px solid var(--border);
+    padding: 10px 18px;
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    box-shadow: 3px 3px 0 var(--border);
+}
+
+.btn:hover {
+    background-color: var(--text);
+    color: var(--bg);
+}
+
+.btn:active {
+    transform: translate(1px, 1px);
+    box-shadow: 2px 2px 0 var(--border);
+}
+
+footer {
+    border-top: 2px solid var(--border);
+    margin-top: 40px;
+    padding-top: 20px;
+    font-size: 0.9rem;
+}
+
+footer a {
+    color: var(--text);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--border);
+    padding-bottom: 2px;
+}
+
+footer a:hover {
+    background-color: var(--text);
+    color: var(--bg);
+}
+
+@media(max-width: 600px) {
+    header h1 {
+        font-size: 1.6rem;
+    }
+    .dark-mode-toggle {
+        position: static;
+        width: 100%;
+        margin-top: 15px;
+    }
+    .cron-input-wrapper {
+        flex-direction: column;
+    }
+    .cron-input-wrapper input[type="text"] {
+        font-size: 1.1rem;
+        letter-spacing: 1px;
+    }
+    .fields-summary {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

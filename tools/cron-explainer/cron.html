@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRON Schedule Explainer & Builder - Project Toolsuite</title>
+    <meta name="description" content="Validate, explain, and build CRON expressions visually. View natural English translations and upcoming scheduled execution times.">
+    <link rel="stylesheet" href="../../theme.css">
+    <link rel="stylesheet" href="cron.css">
+    <script src="../../theme.js"></script>
+</head>
+<body>
+
+    <header>
+        <div style="display: flex; align-items: center;">
+            <button class="nav-btn" onclick="window.location.href='../../index.html'">[ &lt; ] HOME</button>
+            <h1>CRON Explainer & Builder</h1>
+        </div>
+        <p>Convert CRON schedule syntax to plain English and visually compile cron expressions.</p>
+        <button id="themeBtn" class="dark-mode-toggle" onclick="toggleTheme()">DARK MODE</button>
+    </header>
+
+    <main>
+        <!-- Top Input & Explanation Panel -->
+        <div class="card">
+            <label class="card-title" style="border: none; padding: 0; margin-bottom: 8px; display: block;">CRON Expression (5-Fields)</label>
+            <div class="cron-input-wrapper">
+                <input type="text" id="cronInput" placeholder="e.g. */15 9-17 * * 1-5" autocomplete="off" spellcheck="false">
+            </div>
+
+            <div class="status-panel" id="statusPanel">
+                Type a 5-field CRON expression above to begin...
+            </div>
+
+            <!-- Field Breakdown Grid -->
+            <div class="fields-summary">
+                <div class="field-badge">
+                    <div class="field-name">Minute</div>
+                    <div class="field-value" id="valMin">-</div>
+                </div>
+                <div class="field-badge">
+                    <div class="field-name">Hour</div>
+                    <div class="field-value" id="valHour">-</div>
+                </div>
+                <div class="field-badge">
+                    <div class="field-name">Day of Month</div>
+                    <div class="field-value" id="valDom">-</div>
+                </div>
+                <div class="field-badge">
+                    <div class="field-name">Month</div>
+                    <div class="field-value" id="valMonth">-</div>
+                </div>
+                <div class="field-badge">
+                    <div class="field-name">Day of Week</div>
+                    <div class="field-value" id="valDow">-</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tool-grid">
+            <!-- Left Side: Interactive Builder -->
+            <div class="card">
+                <h2 class="card-title">Visual Builder</h2>
+                
+                <div class="tab-bar">
+                    <button class="tab-btn active" data-tab="tab-minute">Minute</button>
+                    <button class="tab-btn" data-tab="tab-hour">Hour</button>
+                    <button class="tab-btn" data-tab="tab-dom">Day of Month</button>
+                    <button class="tab-btn" data-tab="tab-month">Month</button>
+                    <button class="tab-btn" data-tab="tab-dow">Day of Week</button>
+                </div>
+
+                <!-- Minute Tab -->
+                <div class="tab-content active" id="tab-minute">
+                    <div class="builder-mode-row">
+                        <label class="radio-label">
+                            <input type="radio" name="minute_mode" value="every" id="minuteModeEvery" checked>
+                            Every Minute (*)
+                        </label>
+                    </div>
+                    <div class="builder-mode-row">
+                        <label class="radio-label">
+                            <input type="radio" name="minute_mode" value="step" id="minuteModeStep">
+                            Intervals / Steps (*/step)
+                        </label>
+                        <div class="control-subset">
+                            Every <select id="minuteStepValue"></select> minutes 
+                            starting at minute <select id="minuteStepStart"></select>
+                        </div>
+                    </div>
+                    <div class="builder-mode-row">
+                        <label class="radio-label">
+                            <input type="radio" name="minute_mode" value="range" id="minuteModeRange">
+                            Range (start-end)
+                        </label>
+                        <div class="control-subset">
+                            From minute <select id="minuteRangeStart"></select> 
+                            to minute <select id="minuteRangeEnd"></select>
+                        </div>
+                    </div>
+                    <div class="builder-mode-row">
+                        <label class="radio-label">
+                            <input type="radio" name="minute_mode" value="specific" id="minuteModeSpecific">
+                            Specific Minutes (comma separated)
+                        </label>
+                        <div class="control-subset">
+                            <div class="checkbox-grid" id="minSpecificGrid"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hour Tab -->
+                <div class="tab-content" id="tab-hour">
+                    <div class="builder-mode-row">
+                        <label class="radio-label">
+                            <input type="radio" name="hour_mode" value="every" id="hourModeEvery" checked>
+                            Every Hour (*)
+                        </label>
+                    </div>
+                    <div class="builder-mode-row">
+                        <label class="radio-label">
+                            <input type="radio" name="hour_mode" value="step" id="hourModeStep">
+                            Intervals / Steps (*/step)
+                        </label>
+                        <div class="control-subset">
+                            Every <select id="hourStepValue"></select> hours 
+                            starting at hour <select id="hourStepStart"></select>
+                        </div>
+                    </div>
+                    <div class="builder-mode-row">
+                        <label class="radio-label">
+                            <input type="radio" name="hour_mode" value="range" id="hourModeRange">
+                            Range (start-end)
+                        </label>
+                        <div class="control-subset">
+                            From hour <select id="hourRangeStart"></select> 
+                            to hour <select id="hourRangeEnd"></select>
+                        </div>
+                    </div>
+                    <div class="builder-mode-row">
+                        <label class="radio-label">
+                            <input type="radio" name="hour_mode" value="specific" id="hourModeSpecific">
+                            Specific Hours
+                        </label>
+                        <div class="control-subset">
+                            <div class="checkbox-grid" id="hourSpecificGrid"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DOM Tab -->
+                <div class="tab-content" id="tab-dom">
+                    <div class="builder-mode-row">
+                        <label class="radio-label">
+                            <input type="radio" name="dom_mode" value="every" id="domModeEvery" checked>
+                            Every Day of Month (*)
+                        </label>
+                    </div>
+                    <div class="builder-mode-row">
+                        <label class="radio-label">
+                            <input type="radio" name="dom_mode" value="step" id="domModeStep">
+                            Intervals / Steps (*/step)
+                        </label>
+                        <div class="control-subset">
+                            Every <select id="domStepValue"></select> days 
+                            starting on day <select id="domStepStart"></select>
+                        </div>
+                    </div>
+                    <div class="builder-mode-row">
+                        <label class="radio-label">
+                            <input type="radio" name="dom_mode" value="range" id="domModeRange">
+                            Range (start-end)
+                        </label>
+                        <div class="control-subset">
+                            From day <select id="domRangeStart"></select> 
+                            to day <select id="domRangeEnd"></select>
+                        </div>
+                    </div>
+                    <div class="builder-mode-row">
+                        <label class="radio-label">
+                            <input type="radio" name="dom_mode" value="specific" id="domModeSpecific">
+                            Specific Days
+                        </label>
+                        <div class="control-subset">
+                            <div class="checkbox-grid" id="domSpecificGrid"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Month Tab -->
+                <div class="tab-content" id="tab-month">
+                    <div class="builder-mode-row">
+                        <label class="radio-label">
+                            <input type="radio" name="month_mode" value="every" id="monthModeEvery" checked>
+                            Every Month (*)
+                        </label>
+                    </div>
+                    <div class="builder-mode-row">
+                        <label class="radio-label">
+                            <input type="radio" name="month_mode" value="step" id="monthModeStep">
+                            Intervals / Steps (*/step)
+                        </label>
+                        <div class="control-subset">
+                            Every <select id="monthStepValue"></select> months 
+                            starting in <select id="monthStepStart"></select>
+                        </div>
+                    </div>
+                    <div class="builder-mode-row">
+                        <label class="radio-label">
+                            <input type="radio" name="month_mode" value="range" id="monthModeRange">
+                            Range (start-end)
+                        </label>
+                        <div class="control-subset">
+                            From <select id="monthRangeStart"></select> 
+                            to <select id="monthRangeEnd"></select>
+                        </div>
+                    </div>
+                    <div class="builder-mode-row">
+                        <label class="radio-label">
+                            <input type="radio" name="month_mode" value="specific" id="monthModeSpecific">
+                            Specific Months
+                        </label>
+                        <div class="control-subset">
+                            <div class="checkbox-grid" id="monthSpecificGrid"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DOW Tab -->
+                <div class="tab-content" id="tab-dow">
+                    <div class="builder-mode-row">
+                        <label class="radio-label">
+                            <input type="radio" name="dow_mode" value="every" id="dowModeEvery" checked>
+                            Every Day of Week (*)
+                        </label>
+                    </div>
+                    <div class="builder-mode-row">
+                        <label class="radio-label">
+                            <input type="radio" name="dow_mode" value="step" id="dowModeStep">
+                            Intervals / Steps (*/step)
+                        </label>
+                        <div class="control-subset">
+                            Every <select id="dowStepValue"></select> days of the week 
+                            starting on <select id="dowStepStart"></select>
+                        </div>
+                    </div>
+                    <div class="builder-mode-row">
+                        <label class="radio-label">
+                            <input type="radio" name="dow_mode" value="range" id="dowModeRange">
+                            Range (start-end)
+                        </label>
+                        <div class="control-subset">
+                            From <select id="dowRangeStart"></select> 
+                            to <select id="dowRangeEnd"></select>
+                        </div>
+                    </div>
+                    <div class="builder-mode-row">
+                        <label class="radio-label">
+                            <input type="radio" name="dow_mode" value="specific" id="dowModeSpecific">
+                            Specific Weekdays
+                        </label>
+                        <div class="control-subset">
+                            <div class="checkbox-grid" id="dowSpecificGrid"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: Next executions -->
+            <div class="card" style="height: fit-content;">
+                <h2 class="card-title">Next 5 Executions</h2>
+                <p style="font-size: 0.85rem; color: var(--muted); margin-top: -10px; margin-bottom: 18px;">
+                    Calculated in your local timezone:
+                </p>
+                <ul class="execution-list" id="nextExecutions">
+                    <!-- Dynamic execution dates go here -->
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p><a href="../../index.html">← Back to Home</a></p>
+    </footer>
+
+    <script src="cron.js"></script>
+</body>
+</html>
