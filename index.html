@@ -1251,7 +1251,8 @@ function initSpinner() {
   document.addEventListener('click', function(e) {
     const toolLink = e.target.closest('.tool-link, .tool-card a, a[href*="tools/"]');
     if (!toolLink) return;
-    if (toolLink.closest('.tag-list, .recent-sidebar, .footer-links')) return;
+    // Only exclude tag filters and footer links – recent tools should also show spinner
+    if (toolLink.closest('.tag-list, .footer-links')) return;
     let href = toolLink.getAttribute('href');
     if (href && !href.startsWith('#') && !href.startsWith('javascript:')) {
       showSpinner();
