@@ -27,7 +27,47 @@ body{
 
 }
 
+/* TEXT SHOULD FOLLOW THEME */
+body {
+    background: var(--bg);
+    color: var(--text);
+}
 
+/* ALL BOX TEXT FIX */
+.hero,
+.clock-card,
+.tool-section,
+.result-box,
+.converter-box,
+.form-grid,
+.input-group,
+.tabs,
+.dev-grid button,
+.clock-time {
+    color: var(--text);
+}
+
+/* INPUT TEXT FIX */
+input,
+select {
+    color: var(--text);
+    background: var(--tag-bg);
+}
+
+/* PLACEHOLDER FIX */
+input::placeholder {
+    color: gray;
+}
+
+/* CLOCK CARD TEXT FIX */
+.clock-card h4 {
+    color: var(--text);
+}
+
+/* BUTTON TEXT ALWAYS VISIBLE */
+button {
+    color: var(--text);
+}
 
 /* ================= HEADER ================= */
 
@@ -63,9 +103,6 @@ header {
 
 
 }
-
-
-
 
 
 .header-left {

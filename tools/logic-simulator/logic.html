@@ -26,8 +26,8 @@
 
         body {
             font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            background-color: var(--bg);
+            color: var(--text);
             margin: 0;
             display: flex;
             height: 100vh;
@@ -35,15 +35,33 @@
             user-select: none;
         }
 
+        .dark-mode-toggle {
+            margin-bottom: 16px;
+            padding: 8px 12px;
+            border: 2px solid var(--border);
+            background: var(--bg);
+            color: var(--text);
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            display: inline-block;
+            width: fit-content;
+        }
+
+        .dark-mode-toggle:hover {
+            opacity: 0.85;
+        }
+
         /* Sidebar container */
         .sidebar {
             width: 260px;
-            background-color: var(--panel-bg);
-            border-right: 1px solid #27272a;
+            background-color: var(--bg);
+            border-right: 1px solid var(--border);
             display: flex;
             flex-direction: column;
             padding: 20px;
-            z-index: 100;
+            z-index: 200;
             box-shadow: 2px 0 10px rgba(0,0,0,0.5);
         }
 
@@ -53,7 +71,7 @@
             font-weight: 700;
             letter-spacing: -0.025em;
         }
-        p.desc { font-size: 0.8rem; color: #a1a1aa; margin-bottom: 20px; line-height: 1.4; }
+        p.desc { font-size: 0.8rem;  color: var(--muted); margin-bottom: 20px; line-height: 1.4; }
 
         .component-list {
             display: grid;
@@ -63,9 +81,9 @@
         }
 
         button.comp-btn {
-            background: var(--gate-bg);
-            border: 1px solid var(--gate-border);
-            color: #e4e4e7;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            color: var(--text);
             padding: 8px;
             border-radius: 6px;
             cursor: pointer;
@@ -75,8 +93,8 @@
         }
         button.comp-btn:hover { 
             border-color: var(--accent-color); 
-            background: #27272a; 
-            color: #fff;
+            background: var(--tag-bg);
+            color: var(--text);
         }
 
         .truth-table-panel {
@@ -88,7 +106,7 @@
         
         .truth-table-panel h3 {
             font-size: 0.85rem;
-            color: #e4e4e7;
+            color: var(--text);
             margin-top: 0;
             margin-bottom: 10px;
         }
@@ -99,25 +117,25 @@
             font-size: 0.75rem;
             text-align: center;
         }
-        th, td { border: 1px solid #27272a; padding: 6px; }
-        th { background: #202024; color: var(--accent-color); font-weight: 600; }
+        th, td { border: 1px solid var(--border); padding: 6px; }
+        th { background: var(--tag-bg); color: var(--accent-color); font-weight: 600; }
         tr.active-row { background: rgba(34, 197, 94, 0.15); }
 
         /* Workspace sandbox area */
         .workspace {
             flex-grow: 1;
             position: relative;
-            background-color: var(--bg-color);
-            background-image: radial-gradient(#27272a 1px, transparent 1px);
             background-size: 20px 20px;
             overflow: hidden;
-        }
+            background-color: var(--bg);
+            background-image: radial-gradient(var(--border) 1px, transparent 1px);
+            }
 
         /* Gates/Nodes */
         .gate {
             position: absolute;
-            background: var(--gate-bg);
-            border: 1.5px solid var(--gate-border);
+            background: var(--bg);
+            border: 1.5px solid var(--border);
             border-radius: 8px;
             padding: 5px 10px;
             min-width: 75px;
@@ -142,7 +160,7 @@
             font-weight: 700; 
             pointer-events: none; 
             margin: 0 auto;
-            color: #d4d4d8;
+            color: var(--text);
         }
 
         /* Terminals (Connection Nodes) */
@@ -193,23 +211,27 @@
         /* Toolbar overlay */
         .toolbar {
             position: absolute;
-            top: 15px; right: 15px;
+            top: 15px;
+            right: 150px;
             display: flex;
             gap: 8px;
-            z-index: 100;
+            z-index: 20;
         }
         .action-btn {
-            background: #1f1f23; 
-            color: #d4d4d8; 
-            border: 1px solid #27272a; 
+            background: var(--bg);
             padding: 6px 12px; 
             border-radius: 6px; 
             cursor: pointer;
             font-size: 0.75rem;
             font-weight: 600;
             transition: all 0.15s;
+            color: var(--text);
+            border: 1px solid var(--border);
         }
-        .action-btn:hover { background: #27272a; color: #fff; }
+        .action-btn:hover { 
+            background: var(--tag-bg);
+            color: var(--text);
+        }
         .action-btn.delete { 
             background: #7f1d1d; 
             border-color: #991b1b; 
@@ -218,6 +240,15 @@
         .action-btn.delete:hover {
             background: #991b1b;
             color: #fff;
+        }
+
+        footer a {
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
         }
     
     </style>
@@ -228,6 +259,9 @@
 
     <div class="sidebar">
         <h2>Logic Lab</h2>
+        <button class="dark-mode-toggle" onclick="toggleTheme()" id="themeBtn">
+            DARK MODE
+        </button>
         <p class="desc">Drag components. Click output, then input to wire. Click wires or gates to select and delete.</p>
 
         <div class="component-list">
@@ -246,9 +280,13 @@
             <h3>Truth Table</h3>
             <button class="action-btn" style="width:100%; margin-bottom:12px;" onclick="generateTable()">Generate Table</button>
             <div id="table-output">
-                <p style="text-align:center; color:#52525b; font-size:0.75rem;">Add Inputs and Outputs to generate truth table.</p>
+                <p style="text-align:center; color:var(--muted); font-size:0.75rem;"></p>
             </div>
         </div>
+
+        <footer>
+            <a href="../../index.html">&larr; Back to Home</a>
+        </footer>
     </div>
 
     <div class="workspace" id="workspace">
@@ -257,6 +295,7 @@
             <button class="action-btn delete" id="delete-btn" style="display: none;" onclick="deleteSelected()">Delete Selected</button>
             <button class="action-btn" onclick="clearWorkspace()">Clear All</button>
         </div>
+        
     </div>
 
     <script>
@@ -435,7 +474,7 @@
         function toggleSwitch(gate) {
             gate.output = !gate.output;
             gate.element.querySelector('.gate-title').innerText = gate.output ? "1" : "0";
-            gate.element.querySelector('.gate-title').style.color = gate.output ? "#22c55e" : "#d4d4d8";
+          gate.element.querySelector('.gate-title').style.color = gate.output ? "#22c55e" : "var(--text)";
             simulate();
         }
 
@@ -723,8 +762,5 @@
             }, 50);
         };
     </script>
-    <footer>
-        <a href="../../index.html">&larr; Back to Home</a>
-    </footer>
 </body>
 </html>

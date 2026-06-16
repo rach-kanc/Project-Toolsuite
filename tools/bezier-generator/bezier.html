@@ -15,11 +15,11 @@
 
         /* CSS Variables for raw brutalist theme matching */
         :root {
-            --bg-color: #FFFFFF;
+            --bg-color: var(--bg);
             --text-color: var(--text);
-            --border-thick: 2px solid #000000;
-            --border-heavy: 5px solid #000000;
-            --border-dashed: 1px dashed #000000;
+            --border-thick: 2px solid var(--border);
+            --border-heavy: 5px solid var(--border);
+            --border-dashed: 1px dashed var(--border);
         }
 
         /* Basic Layout Resets */
@@ -43,6 +43,25 @@
             margin: 40px auto;
         }
 
+
+        .dark-mode-toggle {
+            margin-top: 12px;
+            padding: 8px 12px;
+            border: var(--border-thick);
+            background: var(--bg);
+            color: var(--text);
+            font-family: inherit;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            width: auto;
+        }
+
+        .dark-mode-toggle:hover {
+            background: var(--text);
+            color: var(--bg);
+        }
         /* Heavy Anchor Header Underline styling */
         header {
             margin-bottom: 40px;

@@ -25,10 +25,10 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            background-color: var(--bg);
+            color: var(--text);
             margin: 0;
-            padding: 20px;
+            padding: 30px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -37,7 +37,47 @@
 
         h1 { margin-bottom: 10px; }
         p.subtitle { color: var(--muted); margin-top: -10px; margin-bottom: 30px; }
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+        }
 
+        .header {
+            width: 100%;
+            max-width: 900px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .dark-mode-toggle {
+            margin-top: 12px;
+            padding: 8px 12px;
+            border: 2px solid var(--border);
+            background: var(--bg);
+            color: var(--text);
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        .dark-mode-toggle:hover {
+            background: var(--text);
+            color: var(--bg);
+        }
+
+        @media (max-width: 600px) {
+            .header {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
         .controls {
             margin-bottom: 30px;
             display: flex;
@@ -64,8 +104,9 @@
         .game-container {
             display: grid;
             gap: 10px;
-            margin-bottom: 20px;
-            /* Grid Template columns set dynamically by JS */
+            padding: 25px;
+            border-radius: 16px;
+            background: rgba(255,255,255,0.03);
         }
 
         .cell {
@@ -118,29 +159,51 @@
         }
         .confetti { font-size: 3rem; margin-bottom: 10px; }
 
-    
+        footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+            
     </style>
     <link rel="stylesheet" href="../../theme.css">
     <script src="../../theme.js"></script>
 </head>
 <body>
 
-    <h1>Regex Crossword</h1>
-    <p class="subtitle">Solve the puzzle by matching the patterns.</p>
-
-    <div class="controls">
-        <label>Level:</label>
-        <select id="level-select">
-            <option value="0">1. Tutorial (2x2)</option>
-            <option value="1">2. Beginner (2x2)</option>
-            <option value="2">3. Intermediate (3x3)</option>
-            <option value="3">4. Advanced (3x3)</option>
-        </select>
-        <button onclick="resetLevel()">↺ Reset</button>
-    </div>
-
-    <div id="game-board" class="game-container">
+    <div class="header">
+        <div>
+            <h1>Regex Crossword</h1>
+            <p class="subtitle">Solve the puzzle by matching the patterns.</p>
         </div>
+
+        <button class="dark-mode-toggle" onclick="toggleTheme()" id="themeBtn">
+            DARK MODE
+        </button>
+    </div>
+    <div class="main-content">
+        <div class="controls">
+            <label>Level:</label>
+            <select id="level-select">
+                <option value="0">1. Tutorial (2x2)</option>
+                <option value="1">2. Beginner (2x2)</option>
+                <option value="2">3. Intermediate (3x3)</option>
+                <option value="3">4. Advanced (3x3)</option>
+            </select>
+            <button onclick="resetLevel()">↺ Reset</button>
+        </div>
+
+        <div id="game-board" class="game-container">
+            </div>
+        <footer>
+            <a href="../../index.html">&larr; Back to Home</a>
+        </footer>
+    </div>
 
     <div id="victory-modal" class="modal hidden">
         <div class="confetti">🎉</div>
@@ -148,9 +211,7 @@
         <p>You matched all Regular Expressions.</p>
         <button onclick="nextLevel()">Next Level ➔</button>
     </div>
-    <footer>
-        <a href="../../index.html">&larr; Back to Home</a>
-    </footer>
+    
     <script src="crossword-logic.js"></script>
 </body>
 </html>

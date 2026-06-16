@@ -92,6 +92,7 @@
         .logs { flex: 1; overflow-y: auto; padding: 10px; font-family: monospace; font-size: 0.8rem; }
         .log-line { margin-bottom: 3px; }
         .c-gpu { color: var(--accent); } .c-sys { color: var(--muted); }
+        
     
     </style>
     <link rel="stylesheet" href="../../theme.css">
@@ -101,7 +102,9 @@
 
     <aside class="sidebar">
         <div class="brand">VISION<span>_STUDIO</span></div>
-        
+        <button class="dark-mode-toggle" id="themeBtn" onclick="toggleTheme()">
+    DARK MODE
+</button>
         <div class="control-group">
             <div class="group-title">FILE</div>
             <button class="btn" onclick="document.getElementById('file-input').click()">LOAD IMAGE</button>

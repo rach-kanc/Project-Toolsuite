@@ -447,5 +447,26 @@ window.app = {
     }
 };
 
+function updateThemeButton() {
+    const btn = document.getElementById("themeBtn");
+    if (!btn) return;
+
+    btn.textContent =
+        document.documentElement.getAttribute("data-theme") === "dark"
+            ? "LIGHT MODE"
+            : "DARK MODE";
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    updateThemeButton();
+
+    const observer = new MutationObserver(updateThemeButton);
+
+    observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ["data-theme"]
+    });
+});
+
 // Start
 window.onload = () => window.app.init();

@@ -25,64 +25,81 @@
 
         /* Base Reset */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Courier New', monospace; background: #000; color: #fff; overflow: hidden; }
+        body {
+            font-family: 'Courier New', monospace;
+            background: var(--bg);
+            color: var(--text);
+            overflow: hidden;
+        }
 
         /* Layout */
         .container { display: flex; height: 100vh; }
         
         /* Sidebar */
         .sidebar { width: 280px; background: var(--tag-bg); border-right: 4px solid var(--border); display: flex; flex-direction: column; flex-shrink: 0; }
-        .sidebar-header { background: #000; color: #fff; padding: 20px; border-bottom: 4px solid var(--border); }
+        .sidebar-header { background: var(--tag-bg);color: var(--text); padding: 20px; border-bottom: 4px solid var(--border); }
         .sidebar-header h1 { font-size: 24px; font-weight: bold; letter-spacing: 2px; }
         .tool-list { list-style: none; overflow-y: auto; flex: 1; }
         .tool-item { padding: 16px 20px; border-bottom: 3px solid var(--border); cursor: pointer; background: var(--tag-bg); color: var(--text); font-weight: bold; transition: 0.1s; display: flex; align-items: center; }
         .tool-item:hover { background: var(--bg); padding-left: 24px; }
-        .tool-item.active { background: #000; color: #fff; }
+        .tool-item.active {background: #000;color: #fff;}
         .tool-item.active::before { content: '►'; margin-right: 10px; }
 
         /* Main Content */
         .main-content { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-        .header { background: #000; border-bottom: 4px solid #fff; padding: 20px 30px; display: flex; justify-content: space-between; align-items: center; }
-        .btn { background: var(--bg); color: var(--text); border: 3px solid var(--border); padding: 10px 20px; font-family: inherit; font-weight: bold; cursor: pointer; box-shadow: 4px 4px 0 var(--border); transition: 0.1s; }
+        .header { background: var(--tag-bg);border-bottom: 4px solid var(--border); padding: 20px 30px; display: flex; justify-content: space-between; align-items: center; }
+        .btn { background: var(--bg); color: var(--text); border: 3px solid var(--border); padding: 10px 20px; font-family: inherit; font-weight: bold; cursor: pointer; box-shadow: 4px 4px 0 var(--border); transition: 0.1s; margin-right: 150px;}
         .btn:active { transform: translate(4px, 4px); box-shadow: none; }
 
         /* Workspace & Views */
-        .workspace { flex: 1; display: flex; overflow: hidden; background: #1a1a1a; position: relative; }
+        .workspace { flex: 1; display: flex; overflow: hidden; background: var(--bg); position: relative; }
         .main-area { flex: 1; position: relative; overflow: hidden; display: flex; flex-direction: column; }
         
         /* Persistent View Containers */
-        .view-section { width: 100%; height: 100%; display: none; overflow: auto; position: absolute; top: 0; left: 0; background: #1a1a1a; }
+        .view-section { width: 100%; height: 100%; display: none; overflow: auto; position: absolute; top: 0; left: 0;  background: var(--bg); }
         .view-section.active { display: block; }
 
         /* Graph View Specifics */
-        #graph-view { overflow: hidden; } /* Canvas needs no scroll */
-        .upload-zone { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: 4px dashed #fff; padding: 60px; text-align: center; cursor: pointer; z-index: 10; background: rgba(0,0,0,0.8); }
-        .upload-zone:hover { border-color: #00ff00; background: #000; }
-        canvas { display: block; background: #1a1a1a; cursor: grab; }
+        #graph-view { overflow: hidden;  } /* Canvas needs no scroll */
+        .upload-zone {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 4px dashed var(--border);
+            background: var(--tag-bg);
+            color: var(--text);
+            padding: 60px;
+            text-align: center;
+            cursor: pointer;
+            z-index: 10;
+        }
+        .upload-zone:hover { border-color: #00ff00; background: var(--bg); }
+        canvas { display: block;  background: var(--bg); cursor: grab; }
         canvas:active { cursor: grabbing; }
 
         /* UI Overlays */
         .controls { position: absolute; top: 20px; right: 20px; display: flex; gap: 10px; z-index: 20; }
-        .control-btn { width: 40px; height: 40px; border: 3px solid #fff; background: #000; color: #fff; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .control-btn { width: 40px; height: 40px; border: 3px solid var(--border); background: var(--bg);color: var(--text); font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
         .control-btn:hover { background: var(--bg); color: var(--text); }
         
-        .legend { position: absolute; bottom: 20px; left: 20px; background: #000; border: 3px solid #fff; padding: 15px; font-size: 12px; z-index: 20; }
+        .legend { position: absolute; bottom: 20px; left: 20px; background: var(--tag-bg); border: 3px solid var(--border); padding: 15px; font-size: 12px; z-index: 20; }
         .legend-item { display: flex; align-items: center; gap: 10px; margin-bottom: 5px; }
-        .legend-color { width: 15px; height: 15px; border: 1px solid #fff; }
+        .legend-color { width: 15px; height: 15px; border: 1px solid var(--border); }
 
         /* Info Panel */
         .info-panel { width: 350px; background: var(--tag-bg); border-left: 4px solid var(--border); overflow-y: auto; color: var(--text); display: flex; flex-direction: column; }
-        .panel-header { background: #000; color: #fff; padding: 15px; font-weight: bold; border-bottom: 4px solid var(--border); }
+        .panel-header { background: var(--tag-bg);color: var(--text); padding: 15px; font-weight: bold; border-bottom: 4px solid var(--border); }
         .panel-content { padding: 20px; }
         .commit-info-item { margin-bottom: 15px; }
         .commit-info-label { font-size: 11px; font-weight: bold; margin-bottom: 4px; color: #555; }
         .commit-info-value { border: 2px solid var(--border); padding: 8px; background: var(--bg); font-size: 13px; word-break: break-all; }
 
         /* Lists (Branches, Files, History) */
-        .list-container { padding: 40px; color: #fff; max-width: 1000px; margin: 0 auto; }
+        .list-container { padding: 40px; color: var(--text); max-width: 1000px; margin: 0 auto; }
         .list-item { background: var(--bg); color: var(--text); padding: 12px; border: 3px solid var(--border); margin-bottom: 10px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: bold; }
-        .list-item:hover { background: #000; color: #fff; }
-        .list-item.current { background: #000; color: #fff; border-color: #00ff00; }
+        .list-item:hover {  background: var(--tag-bg);color: var(--text);}
+        .list-item.current { background: var(--tag-bg);color: var(--text);border-color: var(--border);}
         
         /* Stats Grid */
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; padding: 40px; }
@@ -90,17 +107,54 @@
         .stat-value { font-size: 36px; font-weight: bold; }
 
         /* Diff View */
-        .diff-view-content { padding: 20px; color: #fff; }
+        .diff-view-content { padding: 20px; color: var(--text); }
         .diff-file { border: 2px solid #fff; margin-bottom: 20px; background: #111; }
         .diff-header { background: var(--bg); color: var(--text); padding: 10px; font-weight: bold; }
         .diff-lines { padding: 10px; font-size: 12px; line-height: 1.4; }
         .diff-add { color: #00ff00; background: rgba(0, 255, 0, 0.1); display: block; }
         .diff-remove { color: #ff0000; background: rgba(255, 0, 0, 0.1); display: block; }
         .diff-context { color: var(--muted); display: block; }
+        .dark-mode-toggle {
+            padding: 10px 16px;
+            border: 3px solid var(--border);
+            background: var(--bg);
+            color: var(--text);
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: 0.2s;
+        }
 
+        .dark-mode-toggle:hover {
+            background: var(--text);
+            color: var(--bg);
+        }
         /* Footer */
-        .footer { background: #000; border-top: 4px solid #fff; padding: 10px 30px; color: #fff; font-size: 12px; }
+        .footer {  background: var(--tag-bg);border-top: 4px solid var(--border);color: var(--text);padding: 10px 30px;  font-size: 12px; }
         .tooltip { position: absolute; background: #000; color: #fff; border: 2px solid #fff; padding: 5px 10px; font-size: 12px; pointer-events: none; display: none; z-index: 1000; }
+
+        .tool-footer {
+            padding: 12px 30px;
+            background: var(--tag-bg);
+            border-top: 2px solid var(--border);
+        }
+
+        .back-home-btn {
+            display: inline-block;
+            padding: 8px 16px;
+            border: 2px solid var(--border);
+            background: var(--bg);
+            color: var(--text);
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .back-home-btn:hover {
+            background: var(--text);
+            color: var(--bg);
+        }
     
     </style>
     
@@ -124,8 +178,17 @@
             <div class="header">
                 <h2 id="tool-title">COMMIT GRAPH</h2>
                 <div>
-                    <button class="btn" onclick="document.getElementById('folder-input').click()">LOAD REPO</button>
-                    <input type="file" id="folder-input" webkitdirectory directory multiple style="display: none;">
+                    <div style="display:flex; gap:10px; align-items:center;">
+                        <button class="dark-mode-toggle" onclick="toggleTheme()" id="themeBtn">
+                            DARK MODE
+                        </button>
+
+                        <button class="btn" onclick="document.getElementById('folder-input').click()">
+                            LOAD REPO
+                        </button>
+
+                        <input type="file" id="folder-input" webkitdirectory directory multiple style="display: none;">
+                    </div>
                 </div>
             </div>
 
@@ -134,8 +197,8 @@
                     
                     <div id="graph-view" class="view-section active">
                         <div id="upload-zone" class="upload-zone">
-                            <div>DROP PROJECT FOLDER HERE</div>
-                            <div style="font-size:12px; margin-top:10px; color:#aaa;">(Must contain .git)</div>
+                            <div style = "color: var(--muted);">DROP PROJECT FOLDER HERE</div>
+                            <div style="font-size:12px; margin-top:10px; color: var(--muted);">(Must contain .git)</div>
                         </div>
                         <canvas id="commit-graph"></canvas>
                         
@@ -168,7 +231,10 @@
                     </div>
 
                     <div id="stats-view" class="view-section">
-                        <div class="stats-grid" id="stats-grid"></div>
+                        <div class="stats-grid">
+                            <h2>STATISTICS</h2>
+                            <div id="stats-grid"></div>
+                        </div>
                     </div>
 
                     <div id="history-view" class="view-section">
@@ -199,9 +265,10 @@
             <div class="footer">
                 <span id="status-bar">READY</span>
             </div>
-
-            <footer>
-                <a href="../../index.html">&larr; Back to Home</a>
+            <footer class="tool-footer">
+                <a href="../../index.html" class="back-home-btn">
+                    ← Back to Home
+                </a>
             </footer>
         </div>
     </div>

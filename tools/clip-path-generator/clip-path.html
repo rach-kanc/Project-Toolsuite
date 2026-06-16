@@ -27,38 +27,55 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
             margin: 0;
             display: flex;
             height: 100vh;
             overflow: hidden;
+            background: var(--bg);
+            color: var(--text);
         }
 
         /* Sidebar Controls */
         .sidebar {
-            width: 300px;
-            background-color: var(--panel-bg);
+            width: 320px;
+            background: var(--bg);
+            border-right: 2px solid var(--border);
             padding: 20px;
             display: flex;
             flex-direction: column;
             gap: 20px;
-            border-right: 1px solid #444;
-            box-shadow: 2px 0 5px rgba(0,0,0,0.3);
+            box-shadow: 4px 0 20px rgba(0,0,0,0.08);
             z-index: 10;
         }
 
         h2 { margin-top: 0; font-size: 1.2rem; }
 
+        .dark-mode-toggle {
+            margin-top: 12px;
+            padding: 8px 12px;
+            border: 2px solid var(--border);
+            background: var(--bg);
+            color: var(--text);
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        .dark-mode-toggle:hover {
+            background: var(--text);
+            color: var(--bg);
+        }
+
         .code-box {
-            background: #111;
             padding: 15px;
             border-radius: 6px;
             font-family: monospace;
-            color: #9cdcfe;
-            border: 1px solid #444;
             word-break: break-all;
             position: relative;
+            background: var(--bg);
+            border: 2px solid var(--border);
+            color: #007acc;
         }
 
         .presets {
@@ -68,16 +85,24 @@
         }
 
         button {
-            padding: 8px;
-            background-color: #444;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: 0.2s;
+            padding: 10px;
+            border-radius: 10px;
+            border: 2px solid var(--border);
+            background: var(--bg);
+            color: var(--text);
+            transition: all 0.25s ease;
         }
-        button:hover { background-color: var(--accent-color); }
-        button.active { background-color: var(--accent-color); }
+
+        button:hover {
+            transform: translateY(-2px);
+            background: var(--accent-color);
+            color: white;
+        }
+
+        button.active {
+            background: var(--accent-color);
+            color: white;
+        }
 
         .copy-btn {
             margin-top: 10px;
@@ -124,19 +149,35 @@
 
         /* Custom Image Upload */
         .upload-section {
-            border-top: 1px solid #444;
+            border-top: 2px solid var(--border);
             padding-top: 15px;
         }
         input[type="file"] { font-size: 0.8rem; }
 
-    
+        .footer-link {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 100;
+        }
+
+        .footer-link a {
+            color: var(--text);
+            text-decoration: none;
+            border-bottom: 1px dotted var(--border);
+            padding: 8px;
+        }
+            
     </style>
 </head>
 <body>
 
     <div class="sidebar">
         <h2>Clip-Path Generator</h2>
-        
+
+        <button class="dark-mode-toggle" onclick="toggleTheme()" id="themeBtn">
+            DARK MODE
+        </button>
         <div>
             <label>Presets:</label>
             <div class="presets">
@@ -168,8 +209,8 @@
         <div class="demo-box" id="target-element">
             </div>
     </div>
-    <footer>
-        <a href="../../index.html">&larr; Back to Home</a>
+    <footer class="footer-link">
+        <a href="../../index.html">← Back to Home</a>
     </footer>
     <script src="clip-logic.js"></script>
 </body>
