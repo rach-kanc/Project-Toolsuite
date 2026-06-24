@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,22 +14,45 @@
     <meta name="twitter:title" content="Vision Studio - Project Toolsuite">
     <meta name="twitter:description" content="AI-powered image analysis and computer vision tools.">
     <meta name="twitter:image" content="https://cdn-icons-png.flaticon.com/512/3522/3522262.png">
-    
+
     <link rel="stylesheet" href="../../assets/css/notifications.css">
     <script src="../../assets/js/notifications.js" defer></script>
     <style>
-
         :root {
             --panel: var(--card-bg, var(--bg));
             --accent: var(--text);
             --mono: 'Courier New', monospace;
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--mono); user-select: none; }
-        body { background: var(--bg); color: var(--text); height: 100vh; display: flex; overflow: hidden; }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--mono);
+            user-select: none;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
 
         /* LAYOUT */
-        .brand { padding: 20px; font-weight: 900; letter-spacing: 2px; font-size: 1.2rem; background: var(--bg);border-bottom: 2px solid var(--accent); }
-        .brand span { color: var(--accent); }
+        .brand {
+            padding: 20px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            font-size: 1.2rem;
+            background: var(--bg);
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .brand span {
+            color: var(--accent);
+        }
 
         .sidebar {
             width: 320px;
@@ -74,34 +98,112 @@
             background: var(--tag-bg);
             border-color: var(--text);
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
         .sidebar-footer a:active {
             transform: translateY(0);
         }
-        
-        .control-group { padding: 15px; border-bottom: 1px solid var(--border); }
-        .group-title { font-size: 0.7rem; color: var(--muted); margin-bottom: 10px; font-weight: bold; letter-spacing: 1px; }
+
+        .control-group {
+            padding: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .group-title {
+            font-size: 0.7rem;
+            color: var(--muted);
+            margin-bottom: 10px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
 
         /* CONTROLS */
-        .slider-box { margin-bottom: 15px; }
-        .slider-box label { font-size: 0.7rem; color: var(--muted); display: flex; justify-content: space-between; margin-bottom: 5px; }
-        input[type=range] { width: 100%; background: #222; height: 4px; border-radius: 2px; appearance: none; }
-        input[type=range]::-webkit-slider-thumb { appearance: none; width: 15px; height: 15px; background: var(--accent); cursor: pointer; border-radius: 50%; }
+        .slider-box {
+            margin-bottom: 15px;
+        }
 
-        .btn { width: 100%; padding: 12px;background: var(--bg); border: 1px solid var(--border);color: var(--text); margin-bottom: 8px; cursor: pointer; text-align: left; font-size: 0.8rem; font-weight: bold; border-radius: 8px;transition: all 0.2s ease; }
-        .btn:hover { border-color: var(--accent); background: var(--tag-bg);border-color: var(--text); transform: translateY(-1px);}
-        .btn.active { background: var(--accent); color: var(--text); border-color: var(--accent); }
+        .slider-box label {
+            font-size: 0.7rem;
+            color: var(--muted);
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        input[type=range] {
+            width: 100%;
+            background: #222;
+            height: 4px;
+            border-radius: 2px;
+            appearance: none;
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            appearance: none;
+            width: 15px;
+            height: 15px;
+            background: var(--accent);
+            cursor: pointer;
+            border-radius: 50%;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            color: var(--text);
+            margin-bottom: 8px;
+            cursor: pointer;
+            text-align: left;
+            font-size: 0.8rem;
+            font-weight: bold;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            border-color: var(--accent);
+            background: var(--tag-bg);
+            border-color: var(--text);
+            transform: translateY(-1px);
+        }
+
+        .btn.active {
+            background: var(--accent);
+            color: var(--text);
+            border-color: var(--accent);
+        }
 
         /* STICKER LAB */
-        .sticker-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-        .sticker-item { 
-            background: var(--bg);border: 1px solid var(--border); cursor: pointer; padding: 8px; 
-            display: flex; align-items: center; justify-content: center; height: 50px;
+        .sticker-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
         }
-        .sticker-item:hover { border-color: var(--accent);  background: var(--tag-bg); }
-        .sticker-item img { max-width: 100%; max-height: 100%; pointer-events: none; }
+
+        .sticker-item {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            cursor: pointer;
+            padding: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 50px;
+        }
+
+        .sticker-item:hover {
+            border-color: var(--accent);
+            background: var(--tag-bg);
+        }
+
+        .sticker-item img {
+            max-width: 100%;
+            max-height: 100%;
+            pointer-events: none;
+        }
 
         /* CANVAS AREA */
         .dark-mode-toggle {
@@ -110,56 +212,164 @@
             right: 15px;
             z-index: 999;
         }
-        .viewport { flex: 1; display: flex; flex-direction: column; background: var(--bg);position: relative; }
-        .canvas-area { flex: 1; display: flex; align-items: center; justify-content: center; background-color: var(--bg); overflow: hidden; position: relative; background: linear-gradient(180deg,var(--bg),var(--card-bg)); background-size: 20px 20px; }
-        
-        #composition-layer { position: relative; box-shadow: 0 0 50px rgba(0,0,0,0.8); }
-        canvas { display: block; max-width: 100%; max-height: 100%; }
+
+        .viewport {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg);
+            position: relative;
+        }
+
+        .canvas-area {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--bg);
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(180deg, var(--bg), var(--card-bg));
+            background-size: 20px 20px;
+        }
+
+        #composition-layer {
+            position: relative;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+        }
+
+        canvas {
+            display: block;
+            max-width: 100%;
+            max-height: 100%;
+        }
 
         /* GIZMO SYSTEM (The Advanced Part) */
-        .sticker-obj { 
-            position: absolute; 
-            cursor: move; 
+        .sticker-obj {
+            position: absolute;
+            cursor: move;
             transform-origin: center center;
         }
-        .sticker-obj img { width: 100%; height: 100%; display: block; pointer-events: none; }
-        
+
+        .sticker-obj img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            pointer-events: none;
+        }
+
         /* Selection Box */
-        .sticker-obj.selected { outline: 2px solid var(--accent); }
-        
+        .sticker-obj.selected {
+            outline: 2px solid var(--accent);
+        }
+
         /* Handles */
-        .handle { position: absolute; width: 10px; height: 10px; background: var(--accent); border-radius: 50%; display: none; }
-        .sticker-obj.selected .handle { display: block; }
-
-        .h-resize { bottom: -6px; right: -6px; cursor: se-resize; }
-        
-        .h-rotate-stem { 
-            position: absolute; top: -20px; left: 50%; height: 20px; width: 1px; background: var(--accent); 
-            display: none; transform: translateX(-50%);
+        .handle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: none;
         }
-        .h-rotate-knob { 
-            position: absolute; top: -26px; left: 50%; width: 12px; height: 12px; background: var(--accent); 
-            border-radius: 50%; cursor: grab; transform: translateX(-50%); display: none;
-        }
-        .sticker-obj.selected .h-rotate-stem, 
-        .sticker-obj.selected .h-rotate-knob { display: block; }
 
-        .upload-hint { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color:var(--muted); pointer-events: none; border: 2px dashed  var(--border); padding: 40px; border-radius: 10px; }
+        .sticker-obj.selected .handle {
+            display: block;
+        }
+
+        .h-resize {
+            bottom: -6px;
+            right: -6px;
+            cursor: se-resize;
+        }
+
+        .h-rotate-stem {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            height: 20px;
+            width: 1px;
+            background: var(--accent);
+            display: none;
+            transform: translateX(-50%);
+        }
+
+        .h-rotate-knob {
+            position: absolute;
+            top: -26px;
+            left: 50%;
+            width: 12px;
+            height: 12px;
+            background: var(--accent);
+            border-radius: 50%;
+            cursor: grab;
+            transform: translateX(-50%);
+            display: none;
+        }
+
+        .sticker-obj.selected .h-rotate-stem,
+        .sticker-obj.selected .h-rotate-knob {
+            display: block;
+        }
+
+        .upload-hint {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: var(--muted);
+            pointer-events: none;
+            border: 2px dashed var(--border);
+            padding: 40px;
+            border-radius: 10px;
+        }
 
         /* LOGS */
-        .terminal { height: 140px;background: var(--card-bg);border-top: 1px solid var(--border); display: flex; flex-direction: column; }
-        .term-head { padding: 5px 15px; background: var(--tag-bg);color: var(--text); font-size: 0.7rem; font-weight: bold; }
-        .logs { flex: 1; overflow-y: auto; padding: 10px; font-family: monospace; font-size: 0.8rem;  color: var(--muted);}
-        .log-line { margin-bottom: 3px; }
-        .c-gpu { color: var(--accent); } .c-sys { color: var(--muted); }
-    
+        .terminal {
+            height: 140px;
+            background: var(--card-bg);
+            border-top: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .term-head {
+            padding: 5px 15px;
+            background: var(--tag-bg);
+            color: var(--text);
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        .logs {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+            font-family: monospace;
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+
+        .log-line {
+            margin-bottom: 3px;
+        }
+
+        .c-gpu {
+            color: var(--accent);
+        }
+
+        .c-sys {
+            color: var(--muted);
+        }
     </style>
     <link rel="stylesheet" href="../../theme.css">
 </head>
+
 <body>
 
     <aside class="sidebar">
-        
+
         <div class="brand">VISION<span>_STUDIO</span></div>
         <button class="dark-mode-toggle" id="themeBtn" onclick="toggleTheme()">
             DARK MODE
@@ -176,9 +386,11 @@
 
         <div class="control-group">
             <div class="group-title">INTERACTIVE STICKERS</div>
-            <button class="btn active" onclick="document.getElementById('sticker-upload').click()">+ UPLOAD CUSTOM PNG</button>
-            <input type="file" id="sticker-upload" accept="image/png" hidden onchange="stickers.handleUpload(this.files[0])">
-            
+            <button class="btn active" onclick="document.getElementById('sticker-upload').click()">+ UPLOAD CUSTOM
+                PNG</button>
+            <input type="file" id="sticker-upload" accept="image/png" hidden
+                onchange="stickers.handleUpload(this.files[0])">
+
             <div class="sticker-grid" id="sticker-palette">
                 <div class="sticker-item" onclick="stickers.add(this.querySelector('img').src)">
                     <img src="https://api.iconify.design/noto:fire.svg" alt="Fire">
@@ -217,11 +429,13 @@
             <div class="group-title">GEOMETRY</div>
             <div class="slider-box">
                 <label>BASE ROTATION (<span id="val-rot">0</span>°)</label>
-                <input type="range" id="slider-rot" min="-180" max="180" value="0" oninput="vision.updateParams('rot', this.value)">
+                <input type="range" id="slider-rot" min="-180" max="180" value="0"
+                    oninput="vision.updateParams('rot', this.value)">
             </div>
             <div class="slider-box">
                 <label>BASE ZOOM (<span id="val-crop">1.0</span>x)</label>
-                <input type="range" id="slider-crop" min="1.0" max="3.0" step="0.1" value="1.0" oninput="vision.updateParams('crop', this.value)">
+                <input type="range" id="slider-crop" min="1.0" max="3.0" step="0.1" value="1.0"
+                    oninput="vision.updateParams('crop', this.value)">
             </div>
         </div>
 
@@ -238,8 +452,8 @@
         <div class="canvas-area" id="drop-zone" onclick="stickers.deselectAll(event)">
             <div id="composition-layer">
                 <canvas id="gpu-canvas"></canvas>
-                </div>
-            
+            </div>
+
             <div id="hint" class="upload-hint">
                 <h3>DROP IMAGE HERE</h3>
                 <p>GPU Acceleration Ready</p>
@@ -255,164 +469,164 @@
     </main>
 
     <script>
-    /**
-     * ADVANCED STICKER SYSTEM (Gizmos)
-     */
-    const stickers = {
-        layer: document.getElementById('composition-layer'),
-        items: [], // { id, el, x, y, w, h, rotation, src }
-        selectedId: null,
-        
-        // Interaction State
-        dragging: false,
-        resizing: false,
-        rotating: false,
-        startX: 0, startY: 0,
-        initialParams: {},
+        /**
+         * ADVANCED STICKER SYSTEM (Gizmos)
+         */
+        const stickers = {
+            layer: document.getElementById('composition-layer'),
+            items: [], // { id, el, x, y, w, h, rotation, src }
+            selectedId: null,
 
-        init: function() {
-            window.addEventListener('mousemove', e => this.onMove(e));
-            window.addEventListener('mouseup', e => this.onUp(e));
-            window.addEventListener('keydown', e => {
-                if((e.key === 'Delete' || e.key === 'Backspace') && this.selectedId) {
-                    this.remove(this.selectedId);
-                }
-            });
-        },
+            // Interaction State
+            dragging: false,
+            resizing: false,
+            rotating: false,
+            startX: 0, startY: 0,
+            initialParams: {},
 
-        handleUpload: function(file) {
-            if(!file) return;
-            const reader = new FileReader();
-            reader.onload = e => this.add(e.target.result);
-            reader.readAsDataURL(file);
-        },
+            init: function () {
+                window.addEventListener('mousemove', e => this.onMove(e));
+                window.addEventListener('mouseup', e => this.onUp(e));
+                window.addEventListener('keydown', e => {
+                    if ((e.key === 'Delete' || e.key === 'Backspace') && this.selectedId) {
+                        this.remove(this.selectedId);
+                    }
+                });
+            },
 
-        add: function(src) {
-            if(!vision.image) return notify.info("Load a base image first!");
-            
-            const id = Date.now();
-            const el = document.createElement('div');
-            el.className = 'sticker-obj';
-            el.dataset.id = id;
-            
-            // Gizmo HTML
-            el.innerHTML = `
-                <img src="${src}" draggable="false">
-                <div class="handle h-resize"></div>
-                <div class="h-rotate-stem"></div>
-                <div class="h-rotate-knob"></div>
-            `;
+            handleUpload: function (file) {
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = e => this.add(e.target.result);
+                reader.readAsDataURL(file);
+            },
 
-            // Initial State
-            const state = { id, el, x: 100, y: 100, w: 100, h: 100, rotation: 0, src };
-            this.items.push(state);
-            this.updateDOM(state);
+            add: function (src) {
+                if (!vision.image) return notify.info("Load a base image first!");
 
-            // Bind Events
-            el.addEventListener('mousedown', e => {
-                e.stopPropagation();
+                const id = Date.now();
+                const el = document.createElement('div');
+                el.className = 'sticker-obj';
+                el.dataset.id = id;
+
+                // Gizmo HTML
+                el.innerHTML = `
+    <img src="${src}" alt="Sticker overlay" draggable="false">
+    <div class="handle h-resize"></div>
+    <div class="h-rotate-stem"></div>
+    <div class="h-rotate-knob"></div>
+`;
+
+                // Initial State
+                const state = { id, el, x: 100, y: 100, w: 100, h: 100, rotation: 0, src };
+                this.items.push(state);
+                this.updateDOM(state);
+
+                // Bind Events
+                el.addEventListener('mousedown', e => {
+                    e.stopPropagation();
+                    this.select(id);
+                    // Check if clicking handle or body
+                    if (e.target.classList.contains('h-resize')) {
+                        this.resizing = true;
+                    } else if (e.target.classList.contains('h-rotate-knob')) {
+                        this.rotating = true;
+                    } else {
+                        this.dragging = true;
+                    }
+
+                    this.startX = e.clientX;
+                    this.startY = e.clientY;
+                    this.initialParams = { ...state };
+                });
+
+                this.layer.appendChild(el);
                 this.select(id);
-                // Check if clicking handle or body
-                if(e.target.classList.contains('h-resize')) {
-                    this.resizing = true;
-                } else if(e.target.classList.contains('h-rotate-knob')) {
-                    this.rotating = true;
-                } else {
-                    this.dragging = true;
+                vision.log("Added Sticker layer", "c-sys");
+            },
+
+            select: function (id) {
+                this.selectedId = id;
+                this.items.forEach(s => {
+                    if (s.id === id) s.el.classList.add('selected');
+                    else s.el.classList.remove('selected');
+                });
+            },
+
+            deselectAll: function (e) {
+                if (e.target.id === 'drop-zone' || e.target.id === 'composition-layer') {
+                    this.selectedId = null;
+                    this.items.forEach(s => s.el.classList.remove('selected'));
                 }
-                
-                this.startX = e.clientX;
-                this.startY = e.clientY;
-                this.initialParams = { ...state };
-            });
+            },
 
-            this.layer.appendChild(el);
-            this.select(id);
-            vision.log("Added Sticker layer", "c-sys");
-        },
+            remove: function (id) {
+                const idx = this.items.findIndex(s => s.id === id);
+                if (idx > -1) {
+                    this.items[idx].el.remove();
+                    this.items.splice(idx, 1);
+                    this.selectedId = null;
+                    vision.log("Removed Sticker", "c-sys");
+                }
+            },
 
-        select: function(id) {
-            this.selectedId = id;
-            this.items.forEach(s => {
-                if(s.id === id) s.el.classList.add('selected');
-                else s.el.classList.remove('selected');
-            });
-        },
+            onMove: function (e) {
+                if (!this.selectedId) return;
+                const s = this.items.find(i => i.id === this.selectedId);
+                if (!s) return;
 
-        deselectAll: function(e) {
-            if(e.target.id === 'drop-zone' || e.target.id === 'composition-layer') {
-                this.selectedId = null;
-                this.items.forEach(s => s.el.classList.remove('selected'));
+                const dx = e.clientX - this.startX;
+                const dy = e.clientY - this.startY;
+
+                if (this.dragging) {
+                    s.x = this.initialParams.x + dx;
+                    s.y = this.initialParams.y + dy;
+                }
+                else if (this.resizing) {
+                    s.w = Math.max(20, this.initialParams.w + dx);
+                    s.h = Math.max(20, this.initialParams.h + dy); // Keep aspect ratio logic simple for now
+                }
+                else if (this.rotating) {
+                    // Calculate angle from center of sticker to mouse
+                    const rect = s.el.getBoundingClientRect();
+                    const cx = rect.left + rect.width / 2;
+                    const cy = rect.top + rect.height / 2;
+                    const angle = Math.atan2(e.clientY - cy, e.clientX - cx);
+                    const deg = angle * (180 / Math.PI) + 90; // +90 because knob is at top
+                    s.rotation = deg;
+                }
+
+                if (this.dragging || this.resizing || this.rotating) {
+                    this.updateDOM(s);
+                }
+            },
+
+            onUp: function () {
+                this.dragging = false;
+                this.resizing = false;
+                this.rotating = false;
+            },
+
+            updateDOM: function (s) {
+                s.el.style.width = s.w + 'px';
+                s.el.style.height = s.h + 'px';
+                s.el.style.left = s.x + 'px';
+                s.el.style.top = s.y + 'px';
+                s.el.style.transform = `rotate(${s.rotation}deg)`;
             }
-        },
+        };
 
-        remove: function(id) {
-            const idx = this.items.findIndex(s => s.id === id);
-            if(idx > -1) {
-                this.items[idx].el.remove();
-                this.items.splice(idx, 1);
-                this.selectedId = null;
-                vision.log("Removed Sticker", "c-sys");
-            }
-        },
+        /**
+         * VISION ENGINE (WebGL Core)
+         */
+        const vision = {
+            gl: null, canvas: null, image: null, texture: null,
+            currentShader: 'normal',
+            params: { rot: 0, crop: 1.0 },
 
-        onMove: function(e) {
-            if(!this.selectedId) return;
-            const s = this.items.find(i => i.id === this.selectedId);
-            if(!s) return;
-
-            const dx = e.clientX - this.startX;
-            const dy = e.clientY - this.startY;
-
-            if(this.dragging) {
-                s.x = this.initialParams.x + dx;
-                s.y = this.initialParams.y + dy;
-            } 
-            else if(this.resizing) {
-                s.w = Math.max(20, this.initialParams.w + dx);
-                s.h = Math.max(20, this.initialParams.h + dy); // Keep aspect ratio logic simple for now
-            } 
-            else if(this.rotating) {
-                // Calculate angle from center of sticker to mouse
-                const rect = s.el.getBoundingClientRect();
-                const cx = rect.left + rect.width/2;
-                const cy = rect.top + rect.height/2;
-                const angle = Math.atan2(e.clientY - cy, e.clientX - cx);
-                const deg = angle * (180 / Math.PI) + 90; // +90 because knob is at top
-                s.rotation = deg;
-            }
-
-            if(this.dragging || this.resizing || this.rotating) {
-                this.updateDOM(s);
-            }
-        },
-
-        onUp: function() {
-            this.dragging = false;
-            this.resizing = false;
-            this.rotating = false;
-        },
-
-        updateDOM: function(s) {
-            s.el.style.width = s.w + 'px';
-            s.el.style.height = s.h + 'px';
-            s.el.style.left = s.x + 'px';
-            s.el.style.top = s.y + 'px';
-            s.el.style.transform = `rotate(${s.rotation}deg)`;
-        }
-    };
-
-    /**
-     * VISION ENGINE (WebGL Core)
-     */
-    const vision = {
-        gl: null, canvas: null, image: null, texture: null,
-        currentShader: 'normal',
-        params: { rot: 0, crop: 1.0 },
-
-        // SHADERS
-        shaders: {
-            vertex: `#version 300 es
+            // SHADERS
+            shaders: {
+                vertex: `#version 300 es
                 in vec2 a_pos; in vec2 a_tex;
                 uniform float u_rot; uniform float u_crop;
                 out vec2 v_tex;
@@ -425,17 +639,17 @@
                     v_tex = (centered / u_crop) + 0.5;
                     gl_Position = vec4(pos, 0, 1);
                 }`,
-            normal: `#version 300 es
+                normal: `#version 300 es
                 precision highp float; uniform sampler2D u_img; in vec2 v_tex; out vec4 color;
                 void main() { if(v_tex.x<0.||v_tex.x>1.||v_tex.y<0.||v_tex.y>1.) discard; color = texture(u_img, v_tex); }`,
-            pixelate: `#version 300 es
+                pixelate: `#version 300 es
                 precision highp float; uniform sampler2D u_img; in vec2 v_tex; out vec4 color;
                 void main() { 
                     if(v_tex.x<0.||v_tex.x>1.||v_tex.y<0.||v_tex.y>1.) discard;
                     vec2 uv = floor(v_tex * 80.0) / 80.0;
                     color = texture(u_img, uv);
                 }`,
-            aberration: `#version 300 es
+                aberration: `#version 300 es
                 precision highp float; uniform sampler2D u_img; in vec2 v_tex; out vec4 color;
                 void main() {
                     if(v_tex.x<0.||v_tex.x>1.||v_tex.y<0.||v_tex.y>1.) discard;
@@ -444,7 +658,7 @@
                     float b = texture(u_img, v_tex - vec2(0.01,0)).b;
                     color = vec4(r,g,b,1.0);
                 }`,
-            sharpen: `#version 300 es
+                sharpen: `#version 300 es
                 precision highp float; uniform sampler2D u_img; uniform vec2 u_res; in vec2 v_tex; out vec4 color;
                 void main() {
                     if(v_tex.x<0.||v_tex.x>1.||v_tex.y<0.||v_tex.y>1.) discard;
@@ -455,179 +669,180 @@
                     c-=texture(u_img, v_tex+one*vec2(-1,1)); c-=texture(u_img, v_tex+one*vec2(0,1)); c-=texture(u_img, v_tex+one*vec2(1,1));
                     color = vec4(c.rgb, 1.0);
                 }`
-        },
+            },
 
-        init: function() {
-            this.canvas = document.getElementById('gpu-canvas');
-            this.gl = this.canvas.getContext('webgl2', { preserveDrawingBuffer: true });
-            
-            const z = document.getElementById('drop-zone');
-            z.ondragover = e => { e.preventDefault(); z.style.borderColor = '#00e5ff'; };
-            z.ondragleave = e => { e.preventDefault(); z.style.borderColor = 'transparent'; };
-            z.ondrop = e => { e.preventDefault(); this.handleFile(e.dataTransfer.files[0]); };
+            init: function () {
+                this.canvas = document.getElementById('gpu-canvas');
+                this.gl = this.canvas.getContext('webgl2', { preserveDrawingBuffer: true });
 
-            stickers.init();
-            this.log("Vision Engine 3.0 Ready", "c-gpu");
-        },
+                const z = document.getElementById('drop-zone');
+                z.ondragover = e => { e.preventDefault(); z.style.borderColor = '#00e5ff'; };
+                z.ondragleave = e => { e.preventDefault(); z.style.borderColor = 'transparent'; };
+                z.ondrop = e => { e.preventDefault(); this.handleFile(e.dataTransfer.files[0]); };
 
-        handleFile: function(file) {
-            if(!file) return;
-            this.log(`Loading: ${file.name}`, "c-gpu");
-            const r = new FileReader();
-            r.onload = e => {
-                const img = new Image();
-                img.onload = () => {
-                    this.image = img;
-                    this.resize();
-                    this.uploadTexture();
-                    this.render();
-                    document.getElementById('hint').style.display = 'none';
-                    // Sync container
-                    const container = document.getElementById('composition-layer');
-                    container.style.width = this.canvas.style.width;
-                    container.style.height = this.canvas.style.height;
+                stickers.init();
+                this.log("Vision Engine 3.0 Ready", "c-gpu");
+            },
+
+            handleFile: function (file) {
+                if (!file) return;
+                this.log(`Loading: ${file.name}`, "c-gpu");
+                const r = new FileReader();
+                r.onload = e => {
+                    const img = new Image();
+                    img.onload = () => {
+                        this.image = img;
+                        this.resize();
+                        this.uploadTexture();
+                        this.render();
+                        document.getElementById('hint').style.display = 'none';
+                        // Sync container
+                        const container = document.getElementById('composition-layer');
+                        container.style.width = this.canvas.style.width;
+                        container.style.height = this.canvas.style.height;
+                    };
+                    img.src = e.target.result;
                 };
-                img.src = e.target.result;
-            };
-            r.readAsDataURL(file);
-        },
+                r.readAsDataURL(file);
+            },
 
-        uploadTexture: function() {
-            if(this.texture) this.gl.deleteTexture(this.texture);
-            this.texture = this.gl.createTexture();
-            this.gl.bindTexture(this.gl.TEXTURE_2D, this.texture);
-            this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_S, this.gl.CLAMP_TO_EDGE);
-            this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_T, this.gl.CLAMP_TO_EDGE);
-            this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MIN_FILTER, this.gl.LINEAR);
-            this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.LINEAR);
-            this.gl.texImage2D(this.gl.TEXTURE_2D, 0, this.gl.RGBA, this.gl.RGBA, this.gl.UNSIGNED_BYTE, this.image);
-        },
+            uploadTexture: function () {
+                if (this.texture) this.gl.deleteTexture(this.texture);
+                this.texture = this.gl.createTexture();
+                this.gl.bindTexture(this.gl.TEXTURE_2D, this.texture);
+                this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_S, this.gl.CLAMP_TO_EDGE);
+                this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_T, this.gl.CLAMP_TO_EDGE);
+                this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MIN_FILTER, this.gl.LINEAR);
+                this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.LINEAR);
+                this.gl.texImage2D(this.gl.TEXTURE_2D, 0, this.gl.RGBA, this.gl.RGBA, this.gl.UNSIGNED_BYTE, this.image);
+            },
 
-        render: function() {
-            if(!this.image) return;
-            const gl = this.gl;
-            const prog = this.createProgram(this.shaders.vertex, this.shaders[this.currentShader]);
-            gl.useProgram(prog);
+            render: function () {
+                if (!this.image) return;
+                const gl = this.gl;
+                const prog = this.createProgram(this.shaders.vertex, this.shaders[this.currentShader]);
+                gl.useProgram(prog);
 
-            const posBuf = gl.createBuffer();
-            gl.bindBuffer(gl.ARRAY_BUFFER, posBuf);
-            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, -1,1, 1,-1, 1,1]), gl.STATIC_DRAW);
-            const aPos = gl.getAttribLocation(prog, "a_pos");
-            gl.enableVertexAttribArray(aPos);
-            gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
+                const posBuf = gl.createBuffer();
+                gl.bindBuffer(gl.ARRAY_BUFFER, posBuf);
+                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, -1, 1, 1, -1, 1, 1]), gl.STATIC_DRAW);
+                const aPos = gl.getAttribLocation(prog, "a_pos");
+                gl.enableVertexAttribArray(aPos);
+                gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
 
-            const texBuf = gl.createBuffer();
-            gl.bindBuffer(gl.ARRAY_BUFFER, texBuf);
-            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([0,1, 0,0, 1,1, 1,0]), gl.STATIC_DRAW);
-            const aTex = gl.getAttribLocation(prog, "a_tex");
-            gl.enableVertexAttribArray(aTex);
-            gl.vertexAttribPointer(aTex, 2, gl.FLOAT, false, 0, 0);
+                const texBuf = gl.createBuffer();
+                gl.bindBuffer(gl.ARRAY_BUFFER, texBuf);
+                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([0, 1, 0, 0, 1, 1, 1, 0]), gl.STATIC_DRAW);
+                const aTex = gl.getAttribLocation(prog, "a_tex");
+                gl.enableVertexAttribArray(aTex);
+                gl.vertexAttribPointer(aTex, 2, gl.FLOAT, false, 0, 0);
 
-            gl.uniform1f(gl.getUniformLocation(prog, "u_rot"), this.params.rot);
-            gl.uniform1f(gl.getUniformLocation(prog, "u_crop"), this.params.crop);
-            const uRes = gl.getUniformLocation(prog, "u_res");
-            if(uRes) gl.uniform2f(uRes, this.image.width, this.image.height);
+                gl.uniform1f(gl.getUniformLocation(prog, "u_rot"), this.params.rot);
+                gl.uniform1f(gl.getUniformLocation(prog, "u_crop"), this.params.crop);
+                const uRes = gl.getUniformLocation(prog, "u_res");
+                if (uRes) gl.uniform2f(uRes, this.image.width, this.image.height);
 
-            gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
-            gl.clearColor(0,0,0,0);
-            gl.clear(gl.COLOR_BUFFER_BIT);
-            gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-        },
+                gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+                gl.clearColor(0, 0, 0, 0);
+                gl.clear(gl.COLOR_BUFFER_BIT);
+                gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+            },
 
-        createProgram: function(vSrc, fSrc) {
-            const v = this.compile(this.gl.VERTEX_SHADER, vSrc);
-            const f = this.compile(this.gl.FRAGMENT_SHADER, fSrc);
-            const p = this.gl.createProgram();
-            this.gl.attachShader(p, v);
-            this.gl.attachShader(p, f);
-            this.gl.linkProgram(p);
-            return p;
-        },
+            createProgram: function (vSrc, fSrc) {
+                const v = this.compile(this.gl.VERTEX_SHADER, vSrc);
+                const f = this.compile(this.gl.FRAGMENT_SHADER, fSrc);
+                const p = this.gl.createProgram();
+                this.gl.attachShader(p, v);
+                this.gl.attachShader(p, f);
+                this.gl.linkProgram(p);
+                return p;
+            },
 
-        compile: function(type, src) {
-            const s = this.gl.createShader(type);
-            this.gl.shaderSource(s, src);
-            this.gl.compileShader(s);
-            return s;
-        },
+            compile: function (type, src) {
+                const s = this.gl.createShader(type);
+                this.gl.shaderSource(s, src);
+                this.gl.compileShader(s);
+                return s;
+            },
 
-        setShader: function(name) {
-            this.currentShader = name;
-            this.render();
-            this.log(`Filter: ${name}`, "c-gpu");
-        },
+            setShader: function (name) {
+                this.currentShader = name;
+                this.render();
+                this.log(`Filter: ${name}`, "c-gpu");
+            },
 
-        updateParams: function(k, v) {
-            this.params[k] = parseFloat(v);
-            document.getElementById(`val-${k}`).innerText = v;
-            this.render();
-        },
+            updateParams: function (k, v) {
+                this.params[k] = parseFloat(v);
+                document.getElementById(`val-${k}`).innerText = v;
+                this.render();
+            },
 
-        resize: function() {
-            const maxW = 1000; 
-            const scale = Math.min(maxW / this.image.width, 1);
-            this.canvas.width = this.image.width;
-            this.canvas.height = this.image.height;
-            this.canvas.style.width = (this.image.width * scale) + "px";
-            this.canvas.style.height = (this.image.height * scale) + "px";
-        },
+            resize: function () {
+                const maxW = 1000;
+                const scale = Math.min(maxW / this.image.width, 1);
+                this.canvas.width = this.image.width;
+                this.canvas.height = this.image.height;
+                this.canvas.style.width = (this.image.width * scale) + "px";
+                this.canvas.style.height = (this.image.height * scale) + "px";
+            },
 
-        export: function() {
-            if(!this.image) return;
-            this.log("Compositing High-Res...", "c-sys");
+            export: function () {
+                if (!this.image) return;
+                this.log("Compositing High-Res...", "c-sys");
 
-            const tempCanvas = document.createElement('canvas');
-            const ctx = tempCanvas.getContext('2d');
-            tempCanvas.width = this.canvas.width;
-            tempCanvas.height = this.canvas.height;
+                const tempCanvas = document.createElement('canvas');
+                const ctx = tempCanvas.getContext('2d');
+                tempCanvas.width = this.canvas.width;
+                tempCanvas.height = this.canvas.height;
 
-            // 1. Draw WebGL Background
-            this.render();
-            ctx.drawImage(this.canvas, 0, 0);
+                // 1. Draw WebGL Background
+                this.render();
+                ctx.drawImage(this.canvas, 0, 0);
 
-            // 2. Draw Stickers (Mapped from DOM scale to Canvas scale)
-            const rect = this.canvas.getBoundingClientRect();
-            const scaleX = this.canvas.width / rect.width;
-            const scaleY = this.canvas.height / rect.height;
+                // 2. Draw Stickers (Mapped from DOM scale to Canvas scale)
+                const rect = this.canvas.getBoundingClientRect();
+                const scaleX = this.canvas.width / rect.width;
+                const scaleY = this.canvas.height / rect.height;
 
-            stickers.items.forEach(s => {
-                const img = s.el.querySelector('img');
-                
-                // Save context
-                ctx.save();
-                
-                // Move to sticker center
-                const cx = (s.x + s.w/2) * scaleX;
-                const cy = (s.y + s.h/2) * scaleY;
-                ctx.translate(cx, cy);
-                
-                // Rotate
-                ctx.rotate(s.rotation * Math.PI / 180);
-                
-                // Draw Image centered
-                ctx.drawImage(img, -s.w*scaleX/2, -s.h*scaleY/2, s.w*scaleX, s.h*scaleY);
-                
-                ctx.restore();
-            });
+                stickers.items.forEach(s => {
+                    const img = s.el.querySelector('img');
 
-            const link = document.createElement('a');
-            link.download = `vision_ultra_${Date.now()}.png`;
-            link.href = tempCanvas.toDataURL();
-            link.click();
-            this.log("Exported!", "c-gpu");
-        },
+                    // Save context
+                    ctx.save();
 
-        log: function(msg, cls) {
-            const d = document.createElement('div');
-            d.className = `log-line ${cls}`;
-            d.innerText = `>> ${msg}`;
-            document.getElementById('logs').prepend(d);
-        }
-    };
+                    // Move to sticker center
+                    const cx = (s.x + s.w / 2) * scaleX;
+                    const cy = (s.y + s.h / 2) * scaleY;
+                    ctx.translate(cx, cy);
 
-    window.onload = () => vision.init();
+                    // Rotate
+                    ctx.rotate(s.rotation * Math.PI / 180);
+
+                    // Draw Image centered
+                    ctx.drawImage(img, -s.w * scaleX / 2, -s.h * scaleY / 2, s.w * scaleX, s.h * scaleY);
+
+                    ctx.restore();
+                });
+
+                const link = document.createElement('a');
+                link.download = `vision_ultra_${Date.now()}.png`;
+                link.href = tempCanvas.toDataURL();
+                link.click();
+                this.log("Exported!", "c-gpu");
+            },
+
+            log: function (msg, cls) {
+                const d = document.createElement('div');
+                d.className = `log-line ${cls}`;
+                d.innerText = `>> ${msg}`;
+                document.getElementById('logs').prepend(d);
+            }
+        };
+
+        window.onload = () => vision.init();
     </script>
 
     <script src="../../theme.js"></script>
 </body>
+
 </html>

@@ -51,7 +51,7 @@ function createFileCard(file, index) {
                 card.className = 'file-card';
                 card.id = `card-${index}`;
                 card.innerHTML = `
-                    <img src="${img.src}" class="file-thumb">
+                    <img src="${img.src}" class="file-thumb" alt="Uploaded image preview">
                     <div>
                         <strong>${file.name}</strong>
                         <div class="meta-warning">${warningText}</div>

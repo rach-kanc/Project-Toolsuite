@@ -80,7 +80,11 @@ function addSig(wrapper, canvas, ev) {
     box.style.left = (ev.clientX - rect.left - 90) + 'px';
     box.style.top = (ev.clientY - rect.top - 40) + 'px';
     
-    box.innerHTML = `<img src="${currentSigData}"><div class="delete-btn">×</div><div class="resize-handle"></div>`;
+    box.innerHTML = `
+    <img src="${currentSigData}" alt="Signature preview">
+    <div class="delete-btn">×</div>
+    <div class="resize-handle"></div>
+`;
     box.querySelector('.delete-btn').onclick = () => box.remove();
     wrapper.appendChild(box);
     setupDrag(box);

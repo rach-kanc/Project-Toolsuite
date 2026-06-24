@@ -19,10 +19,10 @@ pdfInput.onchange = async (e) => {
     // Fixed: Create a fresh Uint8Array to ensure data persistency
     const buffer = await file.arrayBuffer();
     pdfMasterBytes = new Uint8Array(buffer);
-    
+
     // Use a slice for rendering to keep master bytes pure
     const pdf = await pdfjsLib.getDocument({ data: pdfMasterBytes.slice(0) }).promise;
-    
+
     pagesState = [];
     grid.innerHTML = '';
 
@@ -49,7 +49,14 @@ function createPageCard(id, thumbUrl, label) {
     card.draggable = true;
     card.dataset.id = id;
     card.innerHTML = `
-        <div class="thumbnail-wrapper"><img src="${thumbUrl}" id="img-${id}" style="max-width:100%;"></div>
+        <div class="thumbnail-wrapper">
+         <img
+        src="${thumbUrl}"
+        id="img-${id}"
+        alt="PDF page ${label} thumbnail"
+        style="max-width:100%;">
+        </div>
+        
         <div style="font-size:0.7rem; margin-bottom:5px; font-weight:bold;">PAGE ${label}</div>
         <div class="controls">
             <button class="btn-small" onclick="rotatePage('${id}')">ROTATE 90°</button>
