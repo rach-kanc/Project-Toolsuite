@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Special behavior hooks
     document.getElementById("sslEnable").addEventListener("change", toggleSslPanel);
     document.getElementById("rateLimitEnable").addEventListener("change", toggleRateLimitPanel);
-    
+
     const radioTabs = document.querySelectorAll(".radio-tab-label input");
     radioTabs.forEach(radio => {
         radio.addEventListener("change", updateRadioTabsVisual);
@@ -47,7 +47,7 @@ function toggleSslPanel() {
     const sslChecked = document.getElementById("sslEnable").checked;
     const subPanel = document.getElementById("sslSubPanel");
     const portInput = document.getElementById("serverPort");
-    
+
     if (sslChecked) {
         subPanel.classList.add("active");
         if (portInput.value === "80") {
@@ -64,7 +64,7 @@ function toggleSslPanel() {
 function toggleRateLimitPanel() {
     const rateLimitChecked = document.getElementById("rateLimitEnable").checked;
     const subPanel = document.getElementById("rateLimitSubPanel");
-    
+
     if (rateLimitChecked) {
         subPanel.classList.add("active");
     } else {
@@ -97,19 +97,19 @@ function generateConfig() {
     const domain = document.getElementById("domainName").value.trim() || "example.com";
     const port = document.getElementById("serverPort").value.trim() || "80";
     const template = document.querySelector("input[name='templateType']:checked").value;
-    
+
     const rootPath = document.getElementById("rootPath").value.trim() || "/var/www/html";
     const proxyUrl = document.getElementById("proxyUrl").value.trim() || "http://127.0.0.1:3000";
-    
+
     const sslEnable = document.getElementById("sslEnable").checked;
     const sslRedirect = document.getElementById("sslRedirect").checked;
     const sslCert = document.getElementById("sslCert").value.trim() || "/etc/letsencrypt/live/example.com/fullchain.pem";
     const sslKey = document.getElementById("sslKey").value.trim() || "/etc/letsencrypt/live/example.com/privkey.pem";
-    
+
     const gzipEnable = document.getElementById("gzipEnable").checked;
     const cacheEnable = document.getElementById("cacheEnable").checked;
     const headersEnable = document.getElementById("headersEnable").checked;
-    
+
     const rateLimitEnable = document.getElementById("rateLimitEnable").checked;
     const rateLimitZone = document.getElementById("rateLimitZone").value.trim() || "api_limit";
     const rateLimitRate = document.getElementById("rateLimitRate").value.trim() || "10r/s";
@@ -136,7 +136,7 @@ function generateConfig() {
 
     // 3. Main Server Block
     config += `server {\n`;
-    
+
     if (sslEnable) {
         config += `    listen ${port} ssl http2;\n`;
         config += `    listen [::]:${port} ssl http2;\n`;
@@ -230,10 +230,10 @@ function generateConfig() {
     }
 
     // Browser caching static location block
-    if (cacheEnable) {
+    if (cacheEnable && template !== "proxy") {
         config += `\n    # Static Assets Cache Tuning\n`;
         config += `    location ~* \\.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf)$ {\n`;
-        config += `        root ${template === "proxy" ? "/var/www/html" : rootPath};\n`;
+        config += `        root ${rootPath};\n`;
         config += `        expires 30d;\n`;
         config += `        add_header Cache-Control "public, no-transform";\n`;
         config += `    }\n`;
@@ -262,13 +262,13 @@ function downloadConfig() {
     const config = document.getElementById("previewArea").value;
     const blob = new Blob([config], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
-    
+
     const a = document.createElement("a");
     a.href = url;
     a.download = "nginx.conf";
     document.body.appendChild(a);
     a.click();
-    
+
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
 
